@@ -4,10 +4,16 @@ namespace SpriteKind {
     export const table = SpriteKind.create()
     export const speechBubble = SpriteKind.create()
     export const mood = SpriteKind.create()
+    export const SelectionIcon = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menuVisible || rosterShown) {
-    	
+        if (rosterShown) {
+            if (RosterSelectionVar > 0) {
+                sprSelectionIcon.y += -20
+                RosterSelectionVar += -1
+            }
+        }
     } else {
         if (currentYpos > 4) {
             currentYpos += -1
@@ -34,6 +40,15 @@ function ShowChildrenInRoster () {
     classRosterTitle = textsprite.create("Class of 2022")
     classRosterTitle.setPosition(target.x - 30, target.y - 55)
     classRosterTitle.z = 3000
+    sprSelectionIcon = sprites.create(assets.image`myImage5`, SpriteKind.SelectionIcon)
+    animation.runImageAnimation(
+    sprSelectionIcon,
+    assets.animation`myAnim1`,
+    200,
+    true
+    )
+    sprSelectionIcon.setPosition(target.x - 0, target.y - 35)
+    sprSelectionIcon.z = 3000
     for (let index = 0; index <= Children.length - 1; index++) {
         ChildrenRosterList[index] = Children[index]
         sprRosterNames[index] = textsprite.create("")
@@ -52,7 +67,9 @@ function ShowChildrenInRoster () {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menuVisible || rosterShown) {
-    	
+        if (rosterShown) {
+        	
+        }
     } else {
         animation.runImageAnimation(
         target,
@@ -128,7 +145,12 @@ function moveChildren () {
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menuVisible || rosterShown) {
-    	
+        if (rosterShown) {
+            if (RosterSelectionVar < 4) {
+                sprSelectionIcon.y += 20
+                RosterSelectionVar += 1
+            }
+        }
     } else {
         if (currentYpos < 10) {
             currentYpos += 1
@@ -178,6 +200,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
                 value.setPosition(-1000, -1000)
             }
             classRosterTitle.setPosition(-1000, -1000)
+            sprSelectionIcon.setPosition(-1000, -1000)
         }
     }
 })
@@ -230,6 +253,7 @@ let classRosterTitle: TextSprite = null
 let childrenMoodList: Sprite[] = []
 let sprRosterNames: TextSprite[] = []
 let ChildrenRosterList: Sprite[] = []
+let sprSelectionIcon: Sprite = null
 let spr_mood: Sprite = null
 let spr_speechBubble: Sprite = null
 let target: Sprite = null
@@ -238,6 +262,7 @@ let childrenGirlsNames: string[] = []
 let toolboxMenuOptions: Sprite[] = []
 let Children: Sprite[] = []
 let spr_roster: Sprite = null
+let RosterSelectionVar = 0
 let rosterShown = 0
 let objectList: Sprite[] = []
 let stillTalking = 0
@@ -255,6 +280,7 @@ currentYpos = 6
 stillTalking = 0
 objectList = []
 rosterShown = 0
+RosterSelectionVar = 0
 spr_roster = sprites.create(assets.image`myImage4`, SpriteKind.Player)
 spr_roster.setPosition(-1000, -1000)
 spr_roster.setPosition(0, 0)
