@@ -68,7 +68,7 @@ function ShowChildrenInRoster () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menuVisible || rosterShown) {
         if (rosterShown) {
-        	
+            game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
         }
     } else {
         animation.runImageAnimation(
@@ -123,8 +123,8 @@ function depthSorting () {
     for (let value of Children) {
         value.z = value.bottom / 100
     }
-    for (let value of objectList) {
-        value.z = value.bottom / 100
+    for (let value2 of objectList) {
+        value2.z = value2.bottom / 100
     }
 }
 function showDebug () {
@@ -170,9 +170,9 @@ function drawToolMenuOptions () {
             }
         }
     } else {
-        for (let value of toolboxMenuOptions) {
-            value.setPosition(target.x + 600, target.y - 36)
-            value.z = 2001
+        for (let value3 of toolboxMenuOptions) {
+            value3.setPosition(target.x + 600, target.y - 36)
+            value3.z = 2001
         }
     }
 }
@@ -189,15 +189,15 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         } else {
             rosterShown = 0
             spr_roster.setPosition(-1000, -1000)
-            for (let value of Children) {
-                tiles.placeOnRandomTile(value, assets.tile`myTile`)
-                value.setPosition(value.x, value.y + 8)
+            for (let value4 of Children) {
+                tiles.placeOnRandomTile(value4, assets.tile`myTile`)
+                value4.setPosition(value4.x, value4.y + 8)
             }
-            for (let value of childrenMoodList) {
-                value.setPosition(-1000, -1000)
+            for (let value5 of childrenMoodList) {
+                value5.setPosition(-1000, -1000)
             }
-            for (let value of sprRosterNames) {
-                value.setPosition(-1000, -1000)
+            for (let value6 of sprRosterNames) {
+                value6.setPosition(-1000, -1000)
             }
             classRosterTitle.setPosition(-1000, -1000)
             sprSelectionIcon.setPosition(-1000, -1000)
@@ -243,6 +243,7 @@ function returnMood (Sprite2: Sprite) {
     }
     return sprTempMood
 }
+let dir = 0
 let sprTempMood: Sprite = null
 let yValue = 0
 let MenuIncrementValue = 0
@@ -272,7 +273,6 @@ let menuVisible = 0
 let Debug = 0
 scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
-let dir = 0
 Debug = 0
 menuVisible = 0
 currentXpos = 15
@@ -293,7 +293,7 @@ sprites.create(assets.image`villager3WalkFront2`, SpriteKind.chil_01),
 sprites.create(assets.image`villager3WalkFront3`, SpriteKind.Player),
 sprites.create(assets.image`villager3WalkFront4`, SpriteKind.Player)
 ]
-let spr_table = sprites.create(assets.image`table`, SpriteKind.table)
+let spr_table = sprites.create(assets.image`cursor1`, SpriteKind.table)
 let toolboxMenu_sprites = [0, 1]
 toolboxMenuOptions = [
 sprites.create(assets.image`cursor1`, SpriteKind.table),
@@ -335,17 +335,27 @@ childrenBoysNames = [
 "Thomas",
 "Caleb"
 ]
-for (let value of toolboxMenuOptions) {
-    value.setPosition(-1000, -1000)
+let childrenInfo = [
+"child info 1",
+"child info 2",
+"child info 3",
+"child info 4",
+"child info 5",
+"child info 6",
+"child info 7"
+]
+for (let value7 of toolboxMenuOptions) {
+    value7.setPosition(-1000, -1000)
 }
 tiles.placeOnRandomTile(spr_table, assets.tile`myTile`)
 objectList.push(spr_table)
 spr_table.setPosition(spr_table.x, spr_table.y + 14)
-for (let value of Children) {
-    tiles.placeOnRandomTile(value, assets.tile`myTile`)
-    value.setPosition(value.x, value.y + 8)
-    sprites.setDataBoolean(value, "talking", false)
-    setMood(value)
+for (let value8 of Children) {
+    tiles.placeOnRandomTile(value8, assets.tile`myTile`)
+    value8.setPosition(value8.x, value8.y + 8)
+    sprites.setDataString(value8, "info", childrenInfo._pickRandom())
+    sprites.setDataBoolean(value8, "talking", false)
+    setMood(value8)
 }
 target = sprites.create(assets.image`cursor`, SpriteKind.Player)
 spr_speechBubble = sprites.create(assets.image`myImage`, SpriteKind.speechBubble)
@@ -371,20 +381,20 @@ game.onUpdate(function () {
 })
 game.onUpdateInterval(randint(1000, 3000), function () {
     if (!(rosterShown)) {
-        for (let value of Children) {
-            if (!(sprites.readDataBoolean(value, "talking"))) {
+        for (let value9 of Children) {
+            if (!(sprites.readDataBoolean(value9, "talking"))) {
                 dir = randint(0, 4)
-                if (value.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
-                    tiles.placeOnTile(value, value.tilemapLocation().getNeighboringLocation(CollisionDirection.Left))
-                } else if (value.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
-                    tiles.placeOnTile(value, value.tilemapLocation().getNeighboringLocation(CollisionDirection.Right))
-                } else if (value.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
-                    tiles.placeOnTile(value, value.tilemapLocation().getNeighboringLocation(CollisionDirection.Top))
-                } else if (value.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
-                    tiles.placeOnTile(value, value.tilemapLocation().getNeighboringLocation(CollisionDirection.Bottom))
+                if (value9.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
+                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Left))
+                } else if (value9.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
+                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Right))
+                } else if (value9.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
+                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Top))
+                } else if (value9.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
+                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Bottom))
                 } else {
                     if (!(stillTalking)) {
-                        createSpeechBubble(value)
+                        createSpeechBubble(value9)
                     }
                 }
             }
