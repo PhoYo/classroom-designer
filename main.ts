@@ -371,10 +371,11 @@ tiles.placeOnRandomTile(spr_table, assets.tile`myTile`)
 objectList.push(spr_table)
 spr_table.setPosition(spr_table.x, spr_table.y + 14)
 for (let value8 of Children) {
-    tiles.placeOnRandomTile(value8, assets.tile`myTile`)
-    value8.setPosition(value8.x, value8.y + 8)
+    grid.place(value8, tiles.getTileLocation(15, 5))
     sprites.setDataString(value8, "info", childrenInfo._pickRandom())
     sprites.setDataBoolean(value8, "talking", false)
+    sprites.changeDataNumberBy(value8, "xPos", grid.spriteCol(value8))
+    sprites.changeDataNumberBy(value8, "yPos", grid.spriteRow(value8))
     setMood(value8)
 }
 sprTitle = sprites.create(assets.image`myImage6`, SpriteKind.title)
@@ -415,13 +416,18 @@ game.onUpdateInterval(randint(1000, 3000), function () {
             if (!(sprites.readDataBoolean(value9, "talking"))) {
                 dir = randint(0, 4)
                 if (value9.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
-                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Left))
+                    grid.move(value9, -1, 0)
+                    sprites.changeDataNumberBy(value9, "xPos", -1)
                 } else if (value9.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
-                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Right))
+                    grid.move(value9, 1, 0)
+                    sprites.changeDataNumberBy(value9, "xPos", 1)
                 } else if (value9.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
-                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Top))
+                    grid.move(value9, 0, -1)
+                    sprites.changeDataNumberBy(value9, "yPos", -1)
                 } else if (value9.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
-                    tiles.placeOnTile(value9, value9.tilemapLocation().getNeighboringLocation(CollisionDirection.Bottom))
+                    console.log("down")
+                    grid.move(value9, 0, 1)
+                    sprites.changeDataNumberBy(value9, "yPos", 1)
                 } else {
                     if (!(stillTalking)) {
                         createSpeechBubble(value9)
