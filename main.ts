@@ -35,6 +35,14 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         target.setFlag(SpriteFlag.Invisible, false)
     }
 })
+function selectChild (child: Sprite) {
+    animation.runImageAnimation(
+    child,
+    assets.animation`myAnim2`,
+    200,
+    true
+    )
+}
 function ShowChildrenInRoster () {
     ChildrenRosterList = []
     sprRosterNames = [
@@ -80,6 +88,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
             }
         } else {
+            for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
+                if (value.kind() == SpriteKind.chil_01) {
+                    selectChild(value)
+                }
+            }
             animation.runImageAnimation(
             target,
             assets.animation`myAnim`,
@@ -310,8 +323,8 @@ Children = [
 sprites.create(assets.image`villager3WalkFront1`, SpriteKind.chil_01),
 sprites.create(assets.image`villager3WalkFront0`, SpriteKind.chil_01),
 sprites.create(assets.image`villager3WalkFront2`, SpriteKind.chil_01),
-sprites.create(assets.image`villager3WalkFront3`, SpriteKind.Player),
-sprites.create(assets.image`villager3WalkFront4`, SpriteKind.Player)
+sprites.create(assets.image`villager3WalkFront3`, SpriteKind.chil_01),
+sprites.create(assets.image`villager3WalkFront4`, SpriteKind.chil_01)
 ]
 let spr_table = sprites.create(assets.image`cursor1`, SpriteKind.table)
 let toolboxMenu_sprites = [0, 1]

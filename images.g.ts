@@ -846,6 +846,25 @@ fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 . . . . . . . . 
 . . . . . . . . 
 `;
+            case "image27":
+            case "villager3WalkFront5":return img`
+. . . . . . . . . . . . 
+f f . . . . . . . . f . 
+f d f f f f f f f f d f 
+f d d d 4 4 4 4 d d d f 
+. f d 4 4 4 4 4 4 d f . 
+. . f 1 1 4 4 1 1 f . . 
+. f e 1 f 4 4 f 1 e f . 
+4 4 f 1 1 4 4 1 1 f 4 4 
+4 4 f d d f f d d f 4 4 
+4 4 f d d b b d d f 4 4 
+e e f e 4 4 4 4 e f e e 
+. . f b 1 1 1 1 b f . . 
+. . f 1 1 1 1 1 1 f . . 
+. . f 6 6 6 6 6 6 f . . 
+. . . f f f f f f . . . 
+. . . f f . . f f . . . 
+`;
         }
         return null;
     })
@@ -936,6 +955,42 @@ fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 1.......................................................................................................................................1
 1.......................................................................................................................................1
 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+`];
+            case "myAnim2":
+            case "anim4":return [img`
+. . . . . . . . . . . . 
+f f . . . . . . . . f . 
+f d f f f f f f f f d f 
+f d d d 4 4 4 4 d d d f 
+. f d 4 4 4 4 4 4 d f . 
+. . f 1 1 4 4 1 1 f . . 
+. f e 1 f 4 4 f 1 e f . 
+f 4 4 1 1 4 4 1 1 4 4 f 
+f e 4 d d f f d d 4 e f 
+. f e d d b b d d e f . 
+. f f e 4 4 4 4 e f f . 
+e 4 f b 1 1 1 1 b f 4 e 
+4 d f 1 1 1 1 1 1 f d 4 
+4 4 f 6 6 6 6 6 6 f 4 4 
+. . . f f f f f f . . . 
+. . . f f . . f f . . . 
+`, img`
+f f . . . . . . . . f . 
+f d f f f f f f f f d f 
+f d d d 4 4 4 4 d d d f 
+. f d 4 4 4 4 4 4 d f . 
+. . f 1 1 4 4 1 1 f . . 
+. f e 1 f 4 4 f 1 e f . 
+f 4 4 1 1 4 4 1 1 4 4 f 
+f e 4 d d f f d d 4 e f 
+. f e d d b b d d e f . 
+. f f e 4 4 4 4 e f f . 
+e 4 f b 1 1 1 1 b f 4 e 
+4 d f 1 1 1 1 1 1 f d 4 
+4 4 f 6 6 6 6 6 6 f 4 4 
+. . . f f f f f f . . . 
+. . . f f . . f f . . . 
+. . . . . . . . . . . . 
 `];
         }
         return null;
