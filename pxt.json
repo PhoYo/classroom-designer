@@ -8,7 +8,8 @@
         "arcade-character-animations": "github:microsoft/arcade-character-animations#v0.0.2",
         "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0",
         "Timers": "github:microsoft/arcade-timers#v1.1.0",
-        "Sprite Grid": "github:microsoft/arcade-grid#v1.3.0"
+        "Sprite Grid": "github:microsoft/arcade-grid#v1.3.0",
+        "animation": "*"
     },
     "files": [
         "main.blocks",

@@ -8,24 +8,31 @@ namespace SpriteKind {
     export const title = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menuVisible || rosterShown) {
-        if (rosterShown) {
-            if (RosterSelectionVar > 0) {
-                sprSelectionIcon.y += -20
-                RosterSelectionVar += -1
+    if (!(showtitle)) {
+        if (rosterShown && RosterSelectionVar > 0) {
+            sprSelectionIcon.y += -20
+            RosterSelectionVar += -1
+        } else if (menuVisible) {
+        	
+        } else {
+            if (currentYpos > 4) {
+                currentYpos += -1
             }
-        }
-    } else {
-        if (currentYpos > 4) {
-            currentYpos += -1
         }
     }
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (rosterShown) {
-    	
+    if (!(showtitle)) {
+        if (rosterShown) {
+        	
+        } else {
+            showMenu()
+        }
     } else {
-        showMenu()
+        animation.stopAnimation(animation.AnimationTypes.All, sprTitle)
+        sprTitle.setPosition(-1000, -1000)
+        showtitle = 0
+        target.setFlag(SpriteFlag.Invisible, false)
     }
 })
 function ShowChildrenInRoster () {
@@ -67,17 +74,24 @@ function ShowChildrenInRoster () {
     }
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menuVisible || rosterShown) {
-        if (rosterShown) {
-            game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
+    if (!(showtitle)) {
+        if (menuVisible || rosterShown) {
+            if (rosterShown) {
+                game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
+            }
+        } else {
+            animation.runImageAnimation(
+            target,
+            assets.animation`myAnim`,
+            100,
+            false
+            )
         }
     } else {
-        animation.runImageAnimation(
-        target,
-        assets.animation`myAnim`,
-        100,
-        false
-        )
+        animation.stopAnimation(animation.AnimationTypes.All, sprTitle)
+        sprTitle.setPosition(-1000, -1000)
+        showtitle = 0
+        target.setFlag(SpriteFlag.Invisible, false)
     }
 })
 function setMood (mySprite: Sprite) {
@@ -92,11 +106,13 @@ function setMood (mySprite: Sprite) {
     }
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menuVisible || rosterShown) {
-    	
-    } else {
-        if (currentXpos > 9) {
-            currentXpos += -1
+    if (!(showtitle)) {
+        if (menuVisible || rosterShown) {
+        	
+        } else {
+            if (currentXpos > 9) {
+                currentXpos += -1
+            }
         }
     }
 })
@@ -133,11 +149,13 @@ function showDebug () {
     debug_yPos = textsprite.create(convertToText(currentYpos), 15, 1)
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menuVisible || rosterShown) {
-    	
-    } else {
-        if (currentXpos < 21) {
-            currentXpos += 1
+    if (!(showtitle)) {
+        if (menuVisible || rosterShown) {
+        	
+        } else {
+            if (currentXpos < 21) {
+                currentXpos += 1
+            }
         }
     }
 })
@@ -145,30 +163,26 @@ function moveChildren () {
 	
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menuVisible || rosterShown) {
-        if (rosterShown) {
-            if (RosterSelectionVar < 4) {
-                sprSelectionIcon.y += 20
-                RosterSelectionVar += 1
+    if (!(showtitle)) {
+        if (rosterShown && RosterSelectionVar < 4) {
+            sprSelectionIcon.y += 20
+            RosterSelectionVar += 1
+        } else if (menuVisible) {
+        	
+        } else {
+            if (currentYpos < 10) {
+                currentYpos += 1
             }
-        }
-    } else {
-        if (currentYpos < 10) {
-            currentYpos += 1
         }
     }
 })
 function drawToolMenuOptions () {
-    console.log(menuVisible)
     if (menuVisible) {
         MenuIncrementValue = 0
-        for (let yCount = 0; yCount <= 2; yCount++) {
-            yValue = 24 * yCount
-            for (let xCount = 0; xCount <= 1; xCount++) {
-                toolboxMenuOptions[MenuIncrementValue].setPosition(target.x + 39 + 24 * xCount, target.y - 40 + 24 * yCount)
-                toolboxMenuOptions[MenuIncrementValue].z = 2001
-                MenuIncrementValue += 1
-            }
+        for (let yCount = 0; yCount <= toolboxMenuOptions.length - 1; yCount++) {
+            toolboxMenuOptions[MenuIncrementValue].setPosition(target.x + 39 + 16, target.y - 40 + 24 * yCount)
+            toolboxMenuOptions[MenuIncrementValue].z = 2001
+            MenuIncrementValue += 1
         }
     } else {
         for (let value3 of toolboxMenuOptions) {
@@ -178,30 +192,32 @@ function drawToolMenuOptions () {
     }
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Debug) {
-        console.log("show Debug")
-        showDebug()
-    } else {
-        if (!(rosterShown)) {
-            rosterShown = 1
-            spr_roster.z = 3000
-            spr_roster.setPosition(target.x, target.y)
-            ShowChildrenInRoster()
+    if (!(showtitle)) {
+        if (Debug) {
+            console.log("show Debug")
+            showDebug()
         } else {
-            rosterShown = 0
-            spr_roster.setPosition(-1000, -1000)
-            for (let value4 of Children) {
-                tiles.placeOnRandomTile(value4, assets.tile`myTile`)
-                value4.setPosition(value4.x, value4.y + 8)
+            if (!(rosterShown)) {
+                rosterShown = 1
+                spr_roster.z = 3000
+                spr_roster.setPosition(target.x, target.y)
+                ShowChildrenInRoster()
+            } else {
+                rosterShown = 0
+                spr_roster.setPosition(-1000, -1000)
+                for (let value4 of Children) {
+                    tiles.placeOnRandomTile(value4, assets.tile`myTile`)
+                    value4.setPosition(value4.x, value4.y + 8)
+                }
+                for (let value5 of childrenMoodList) {
+                    value5.setPosition(-1000, -1000)
+                }
+                for (let value6 of sprRosterNames) {
+                    value6.setPosition(-1000, -1000)
+                }
+                classRosterTitle.setPosition(-1000, -1000)
+                sprSelectionIcon.setPosition(-1000, -1000)
             }
-            for (let value5 of childrenMoodList) {
-                value5.setPosition(-1000, -1000)
-            }
-            for (let value6 of sprRosterNames) {
-                value6.setPosition(-1000, -1000)
-            }
-            classRosterTitle.setPosition(-1000, -1000)
-            sprSelectionIcon.setPosition(-1000, -1000)
         }
     }
 })
@@ -246,7 +262,6 @@ function returnMood (Sprite2: Sprite) {
 }
 let dir = 0
 let sprTempMood: Sprite = null
-let yValue = 0
 let MenuIncrementValue = 0
 let debug_yPos: TextSprite = null
 let debug_xPos: TextSprite = null
@@ -259,6 +274,7 @@ let sprSelectionIcon: Sprite = null
 let spr_mood: Sprite = null
 let spr_speechBubble: Sprite = null
 let target: Sprite = null
+let sprTitle: Sprite = null
 let childrenBoysNames: string[] = []
 let childrenGirlsNames: string[] = []
 let toolboxMenuOptions: Sprite[] = []
@@ -272,8 +288,10 @@ let currentYpos = 0
 let currentXpos = 0
 let menuVisible = 0
 let Debug = 0
+let showtitle = 0
 scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
+showtitle = 1
 Debug = 0
 menuVisible = 0
 currentXpos = 15
@@ -282,6 +300,7 @@ stillTalking = 0
 objectList = []
 rosterShown = 0
 RosterSelectionVar = 0
+let menuChoiceNumber = 0
 spr_roster = sprites.create(assets.image`myImage4`, SpriteKind.Player)
 spr_roster.setPosition(-1000, -1000)
 spr_roster.setPosition(0, 0)
@@ -358,14 +377,21 @@ for (let value8 of Children) {
     sprites.setDataBoolean(value8, "talking", false)
     setMood(value8)
 }
-let sprTitle = sprites.create(assets.image`myImage6`, SpriteKind.title)
+sprTitle = sprites.create(assets.image`myImage6`, SpriteKind.title)
 target = sprites.create(assets.image`cursor`, SpriteKind.Player)
+target.setFlag(SpriteFlag.Invisible, true)
 spr_speechBubble = sprites.create(assets.image`myImage`, SpriteKind.speechBubble)
 spr_speechBubble.z = 1000
 spr_mood = sprites.create(assets.image`myImage2`, SpriteKind.speechBubble)
 spr_mood.z = 1000
 sprTitle.setPosition(target.x + 164, target.y + 40)
 sprTitle.z = 3000
+animation.runMovementAnimation(
+sprTitle,
+animation.animationPresets(animation.bobbing),
+5000,
+true
+)
 game.onUpdate(function () {
     if (menuVisible || rosterShown) {
         spr_menu.setPosition(target.x + 50, target.y + -4)
