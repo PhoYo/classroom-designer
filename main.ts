@@ -5,6 +5,7 @@ namespace SpriteKind {
     export const speechBubble = SpriteKind.create()
     export const mood = SpriteKind.create()
     export const SelectionIcon = SpriteKind.create()
+    export const title = SpriteKind.create()
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menuVisible || rosterShown) {
@@ -357,11 +358,14 @@ for (let value8 of Children) {
     sprites.setDataBoolean(value8, "talking", false)
     setMood(value8)
 }
+let sprTitle = sprites.create(assets.image`myImage6`, SpriteKind.title)
 target = sprites.create(assets.image`cursor`, SpriteKind.Player)
 spr_speechBubble = sprites.create(assets.image`myImage`, SpriteKind.speechBubble)
 spr_speechBubble.z = 1000
 spr_mood = sprites.create(assets.image`myImage2`, SpriteKind.speechBubble)
 spr_mood.z = 1000
+sprTitle.setPosition(target.x + 164, target.y + 40)
+sprTitle.z = 3000
 game.onUpdate(function () {
     if (menuVisible || rosterShown) {
         spr_menu.setPosition(target.x + 50, target.y + -4)
