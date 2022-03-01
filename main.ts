@@ -383,13 +383,14 @@ for (let value7 of toolboxMenuOptions) {
 tiles.placeOnRandomTile(spr_table, assets.tile`myTile`)
 objectList.push(spr_table)
 spr_table.setPosition(spr_table.x, spr_table.y + 14)
-for (let value8 of Children) {
-    grid.place(value8, tiles.getTileLocation(15, 5))
-    sprites.setDataString(value8, "info", childrenInfo._pickRandom())
-    sprites.setDataBoolean(value8, "talking", false)
-    sprites.changeDataNumberBy(value8, "xPos", grid.spriteCol(value8))
-    sprites.changeDataNumberBy(value8, "yPos", grid.spriteRow(value8))
-    setMood(value8)
+for (let index = 0; index <= Children.length - 1; index++) {
+    grid.place(Children[index], tiles.getTileLocation(15, 5))
+    sprites.setDataString(Children[index], "info", childrenInfo._pickRandom())
+    sprites.setDataBoolean(Children[index], "talking", false)
+    sprites.setDataNumber(Children[index], "xPos", grid.spriteCol(Children[index]))
+    sprites.setDataNumber(Children[index], "yPos", grid.spriteRow(Children[index]))
+    sprites.setDataNumber(Children[index], "childType", index)
+    setMood(Children[index])
 }
 sprTitle = sprites.create(assets.image`myImage6`, SpriteKind.title)
 target = sprites.create(assets.image`cursor`, SpriteKind.Player)
