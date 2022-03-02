@@ -12,6 +12,7 @@ namespace SpriteKind {
     export const SelectionIcon = SpriteKind.create()
     export const title = SpriteKind.create()
     export const selector = SpriteKind.create()
+    export const entity = SpriteKind.create()
 }
 /**
  * movement
@@ -53,21 +54,48 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             showMenu()
         }
     } else {
-        animation.stopAnimation(animation.AnimationTypes.All, sprTitle)
-        sprTitle.setPosition(-1000, -1000)
-        showtitle = 0
-        target.setFlag(SpriteFlag.Invisible, false)
+    	
     }
 })
 function selectChild (sprite: Sprite) {
     sprites.setDataBoolean(sprite, "highlighted", false)
     sprites.setDataBoolean(sprite, "selected", true)
+    sprite.setPosition(sprite.x, sprite.y - 4)
     animation.runImageAnimation(
     sprite,
     childrenSelected[sprites.readDataNumber(sprite, "childType")],
     200,
     true
     )
+    selectedEntity = sprite
+}
+function moveSelectedEntity () {
+    if (tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`)) {
+        sprites.setDataNumber(selectedEntity, "xPos", currentXpos)
+        sprites.setDataNumber(selectedEntity, "xPos", currentYpos)
+        sprites.setDataBoolean(selectedEntity, "selected", false)
+        sprites.setDataBoolean(selectedEntity, "highlighted", true)
+        animation.stopAnimation(animation.AnimationTypes.All, selectedEntity)
+        selectedEntity.setPosition(selectedEntity.x, selectedEntity.y + 4)
+        selectedEntity = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Player)
+    }
 }
 /**
  * Roster
@@ -118,9 +146,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             }
         } else {
             for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-                if (value.kind() == SpriteKind.chil_01) {
-                    selectChild(value)
+                if (value != selectedEntity) {
+                    if (value.kind() == SpriteKind.chil_01) {
+                        selectChild(value)
+                    }
                 }
+            }
+            if (selectedEntity) {
+                moveSelectedEntity()
             }
             animation.runImageAnimation(
             target,
@@ -398,6 +431,8 @@ function playerMovement (x: number, y: number) {
                 }
                 tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
                 positionUI()
+                grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
+                selectedEntity.setPosition(selectedEntity.x, selectedEntity.y - 4)
                 if (Debug) {
                     debug_xPos.setPosition(target.x + 0, target.y + 10)
                     debug_yPos.setPosition(target.x + 10, target.y + 10)
@@ -477,6 +512,7 @@ let toolboxMenu_sprites: number[] = []
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
 let tempGenderVar = 0
+let sprTitle: Sprite = null
 let Children: Sprite[] = []
 let sprSelectionIcon: Sprite = null
 let classRosterTitle: TextSprite = null
@@ -484,13 +520,13 @@ let childrenMoodList: Sprite[] = []
 let sprRosterNames: TextSprite[] = []
 let ChildrenRosterList: Sprite[] = []
 let childrenSelected: Image[][] = []
-let sprTitle: Sprite = null
 let childrenNormal: Image[] = []
 let spr_mood: Sprite = null
 let spr_speechBubble: Sprite = null
 let spr_roster: Sprite = null
 let spr_menu: Sprite = null
 let target: Sprite = null
+let selectedEntity: Sprite = null
 let RosterSelectionVar = 0
 let rosterShown = 0
 let objectList: Sprite[] = []
@@ -516,12 +552,48 @@ rosterShown = 0
 RosterSelectionVar = 0
 let menuChoiceNumber = 0
 let dir = 0
+let randomChild = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
 let tempCheckTileValue = [
 0,
 0,
 0,
 0
 ]
+selectedEntity = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.entity)
 tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
 target = sprites.create(assets.image`cursor`, SpriteKind.Player)
 target.setFlag(SpriteFlag.Invisible, true)
@@ -535,36 +607,35 @@ if (Debug) {
 /**
  * Children tick
  */
-game.onUpdateInterval(randint(1000, 3000), function () {
+game.onUpdateInterval(randint(200, 500), function () {
     if (!(rosterShown)) {
         dir = randint(0, 4)
-        for (let value of Children) {
-            if (!(sprites.readDataBoolean(value, "highlighted"))) {
-                if (!(sprites.readDataBoolean(value, "selected"))) {
-                    if (value.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
-                        grid.move(value, -1, 0)
-                        sprites.changeDataNumberBy(value, "xPos", -1)
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
-                    } else if (value.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
-                        grid.move(value, 1, 0)
-                        sprites.changeDataNumberBy(value, "xPos", 1)
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
-                    } else if (value.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
-                        grid.move(value, 0, -1)
-                        sprites.changeDataNumberBy(value, "yPos", -1)
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
-                    } else if (value.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
-                        grid.move(value, 0, 1)
-                        sprites.changeDataNumberBy(value, "yPos", 1)
-                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
-                    } else {
-                        if (!(stillTalking)) {
-                            createSpeechBubble(value)
-                        }
+        randomChild = Children._pickRandom()
+        if (!(sprites.readDataBoolean(randomChild, "highlighted"))) {
+            if (!(sprites.readDataBoolean(randomChild, "selected"))) {
+                if (randomChild.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
+                    grid.move(randomChild, -1, 0)
+                    sprites.changeDataNumberBy(randomChild, "xPos", -1)
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                } else if (randomChild.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
+                    grid.move(randomChild, 1, 0)
+                    sprites.changeDataNumberBy(randomChild, "xPos", 1)
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                } else if (randomChild.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
+                    grid.move(randomChild, 0, -1)
+                    sprites.changeDataNumberBy(randomChild, "yPos", -1)
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                } else if (randomChild.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
+                    grid.move(randomChild, 0, 1)
+                    sprites.changeDataNumberBy(randomChild, "yPos", 1)
+                    tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                } else {
+                    if (!(stillTalking)) {
+                        createSpeechBubble(randomChild)
                     }
                 }
             }

@@ -159,6 +159,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "myImage8"
     },
+    "image33": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAAAAAAAAAAAwAAAAAAADAwAAAAAAAAAAMAAAAAAAAwMAAAAAAAAAADAAAAAAAAMDAAAAAAAAAAAwAAAAAAADAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "villager3WalkFront5"
+    },
     "anim2": {
         "namespace": "myAnimations",
         "id": "anim2",
