@@ -7,20 +7,22 @@ namespace SpriteKind {
     export const SelectionIcon = SpriteKind.create()
     export const title = SpriteKind.create()
 }
+/**
+ * movement
+ */
+/**
+ * Selection
+ */
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
-        if (rosterShown && RosterSelectionVar > 0) {
-            sprSelectionIcon.y += -20
-            RosterSelectionVar += -1
-        } else if (menuVisible) {
-        	
-        } else {
-            if (currentYpos > 4) {
-                currentYpos += -1
-            }
+    playerMovement(0, -1)
+})
+function deselect () {
+    for (let value of grid.allSprites()) {
+        if (value.kind() == SpriteKind.chil_01) {
+            value.setImage(childrenNormal[sprites.readDataNumber(value, "childType")])
         }
     }
-})
+}
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(showtitle)) {
         if (rosterShown) {
@@ -35,14 +37,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         target.setFlag(SpriteFlag.Invisible, false)
     }
 })
-function selectChild (child: Sprite) {
-    animation.runImageAnimation(
-    child,
-    assets.animation`myAnim2`,
-    200,
-    true
-    )
-}
 function ShowChildrenInRoster () {
     ChildrenRosterList = []
     sprRosterNames = [
@@ -88,11 +82,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
             }
         } else {
-            for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-                if (value.kind() == SpriteKind.chil_01) {
-                    selectChild(value)
-                }
-            }
             animation.runImageAnimation(
             target,
             assets.animation`myAnim`,
@@ -119,15 +108,7 @@ function setMood (mySprite: Sprite) {
     }
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
-        if (menuVisible || rosterShown) {
-        	
-        } else {
-            if (currentXpos > 9) {
-                currentXpos += -1
-            }
-        }
-    }
+    playerMovement(-1, 0)
 })
 function createSpeechBubble (child: Sprite) {
     stillTalking = 1
@@ -162,33 +143,19 @@ function showDebug () {
     debug_yPos = textsprite.create(convertToText(currentYpos), 15, 1)
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
-        if (menuVisible || rosterShown) {
-        	
-        } else {
-            if (currentXpos < 21) {
-                currentXpos += 1
-            }
-        }
-    }
+    playerMovement(1, 0)
 })
 function moveChildren () {
 	
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
-        if (rosterShown && RosterSelectionVar < 4) {
-            sprSelectionIcon.y += 20
-            RosterSelectionVar += 1
-        } else if (menuVisible) {
-        	
-        } else {
-            if (currentYpos < 10) {
-                currentYpos += 1
-            }
-        }
-    }
+    playerMovement(0, 1)
 })
+function highlightChild (child: Sprite) {
+    child.setImage(childrenHighlighted[sprites.readDataNumber(child, "childType")])
+    sprites.setDataBoolean(child, "highlighted", true)
+    target.setFlag(SpriteFlag.Invisible, true)
+}
 function drawToolMenuOptions () {
     if (menuVisible) {
         MenuIncrementValue = 0
@@ -234,6 +201,26 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+function playerMovement (x: number, y: number) {
+    if (!(showtitle)) {
+        if (rosterShown && (RosterSelectionVar < 4 || RosterSelectionVar > 0)) {
+            sprSelectionIcon.y += y * 20
+            RosterSelectionVar += y
+        } else if (menuVisible) {
+        	
+        } else {
+            if (currentYpos < 10 || currentYpos > 4 || (currentXpos > 9 || currentXpos < 21)) {
+                currentYpos += y
+                currentXpos += x
+                for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
+                    if (value.kind() == SpriteKind.chil_01) {
+                        highlightChild(value)
+                    }
+                }
+            }
+        }
+    }
+}
 function showMenu () {
     if (menuVisible) {
         menuVisible = 0
@@ -279,11 +266,11 @@ let MenuIncrementValue = 0
 let debug_yPos: TextSprite = null
 let debug_xPos: TextSprite = null
 let tempGenderVar = 0
+let sprSelectionIcon: Sprite = null
 let classRosterTitle: TextSprite = null
 let childrenMoodList: Sprite[] = []
 let sprRosterNames: TextSprite[] = []
 let ChildrenRosterList: Sprite[] = []
-let sprSelectionIcon: Sprite = null
 let spr_mood: Sprite = null
 let spr_speechBubble: Sprite = null
 let target: Sprite = null
@@ -291,6 +278,8 @@ let sprTitle: Sprite = null
 let childrenBoysNames: string[] = []
 let childrenGirlsNames: string[] = []
 let toolboxMenuOptions: Sprite[] = []
+let childrenHighlighted: Image[] = []
+let childrenNormal: Image[] = []
 let Children: Sprite[] = []
 let spr_roster: Sprite = null
 let RosterSelectionVar = 0
@@ -322,9 +311,23 @@ spr_menu.z = 2000
 Children = [
 sprites.create(assets.image`villager3WalkFront1`, SpriteKind.chil_01),
 sprites.create(assets.image`villager3WalkFront0`, SpriteKind.chil_01),
-sprites.create(assets.image`villager3WalkFront2`, SpriteKind.chil_01),
+sprites.create(assets.image`villager3WalkFront8`, SpriteKind.chil_01),
 sprites.create(assets.image`villager3WalkFront3`, SpriteKind.chil_01),
 sprites.create(assets.image`villager3WalkFront4`, SpriteKind.chil_01)
+]
+childrenNormal = [
+assets.image`villager3WalkFront1`,
+assets.image`villager3WalkFront0`,
+assets.image`villager3WalkFront8`,
+assets.image`villager3WalkFront3`,
+assets.image`villager3WalkFront4`
+]
+childrenHighlighted = [
+assets.image`villager3WalkFront6`,
+assets.image`villager3WalkFront7`,
+assets.image`villager3WalkFront2`,
+assets.image`villager3WalkFront9`,
+assets.image`villager3WalkFront10`
 ]
 let spr_table = sprites.create(assets.image`cursor1`, SpriteKind.table)
 let toolboxMenu_sprites = [0, 1]
@@ -390,6 +393,8 @@ for (let index = 0; index <= Children.length - 1; index++) {
     sprites.setDataNumber(Children[index], "xPos", grid.spriteCol(Children[index]))
     sprites.setDataNumber(Children[index], "yPos", grid.spriteRow(Children[index]))
     sprites.setDataNumber(Children[index], "childType", index)
+    sprites.setDataBoolean(Children[index], "highlighted", false)
+    sprites.setDataNumber(Children[index], "selected", 0)
     setMood(Children[index])
 }
 sprTitle = sprites.create(assets.image`myImage6`, SpriteKind.title)
@@ -428,23 +433,25 @@ game.onUpdateInterval(randint(1000, 3000), function () {
     if (!(rosterShown)) {
         for (let value9 of Children) {
             if (!(sprites.readDataBoolean(value9, "talking"))) {
-                dir = randint(0, 4)
-                if (value9.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
-                    grid.move(value9, -1, 0)
-                    sprites.changeDataNumberBy(value9, "xPos", -1)
-                } else if (value9.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
-                    grid.move(value9, 1, 0)
-                    sprites.changeDataNumberBy(value9, "xPos", 1)
-                } else if (value9.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
-                    grid.move(value9, 0, -1)
-                    sprites.changeDataNumberBy(value9, "yPos", -1)
-                } else if (value9.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
-                    console.log("down")
-                    grid.move(value9, 0, 1)
-                    sprites.changeDataNumberBy(value9, "yPos", 1)
-                } else {
-                    if (!(stillTalking)) {
-                        createSpeechBubble(value9)
+                if (!(sprites.readDataBoolean(value9, "highlighted")) || !(sprites.readDataBoolean(value9, "selected"))) {
+                    dir = randint(0, 4)
+                    if (value9.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
+                        grid.move(value9, -1, 0)
+                        sprites.changeDataNumberBy(value9, "xPos", -1)
+                    } else if (value9.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
+                        grid.move(value9, 1, 0)
+                        sprites.changeDataNumberBy(value9, "xPos", 1)
+                    } else if (value9.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
+                        grid.move(value9, 0, -1)
+                        sprites.changeDataNumberBy(value9, "yPos", -1)
+                    } else if (value9.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
+                        console.log("down")
+                        grid.move(value9, 0, 1)
+                        sprites.changeDataNumberBy(value9, "yPos", 1)
+                    } else {
+                        if (!(stillTalking)) {
+                            createSpeechBubble(value9)
+                        }
                     }
                 }
             }
