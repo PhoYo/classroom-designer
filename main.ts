@@ -1,3 +1,8 @@
+enum ActionKind {
+    Walking,
+    Idle,
+    Jumping
+}
 namespace SpriteKind {
     export const menu = SpriteKind.create()
     export const chil_01 = SpriteKind.create()
@@ -54,7 +59,14 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function selectChild (sprite: Sprite) {
-	
+    sprites.setDataBoolean(sprite, "highlighted", false)
+    sprites.setDataBoolean(sprite, "selected", true)
+    animation.runImageAnimation(
+    sprite,
+    childrenSelected[sprites.readDataNumber(sprite, "childType")],
+    200,
+    true
+    )
 }
 /**
  * Roster
@@ -106,7 +118,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         } else {
             for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
                 if (value.kind() == SpriteKind.chil_01) {
-                    highlightChild(value)
+                    selectChild(value)
                 }
             }
             animation.runImageAnimation(
@@ -218,6 +230,13 @@ function createChildren () {
     assets.image`villager3WalkFront2`,
     assets.image`villager3WalkFront9`,
     assets.image`villager3WalkFront10`
+    ]
+    childrenSelected = [
+    assets.animation`myAnim7`,
+    assets.animation`myAnim8`,
+    assets.animation`myAnim11`,
+    assets.animation`myAnim9`,
+    assets.animation`myAnim10`
     ]
     childrenGirlsNames = [
     "Emma",
@@ -360,7 +379,7 @@ function playerMovement (x: number, y: number) {
 }
 function createTitle () {
     sprTitle = sprites.create(assets.image`myImage6`, SpriteKind.title)
-    sprTitle.setPosition(target.x + 164, target.y + 40)
+    sprTitle.setPosition(target.x + 168, target.y + 40)
     sprTitle.z = 3000
     animation.runMovementAnimation(
     sprTitle,
@@ -414,7 +433,7 @@ function returnMood (Sprite2: Sprite) {
  * Start
  */
 let sprTempMood: Sprite = null
-let MenuIncrementValue: number = []
+let MenuIncrementValue = 0
 let childrenInfo: string[] = []
 let childrenHighlighted: Image[] = []
 let debug_yPos: TextSprite = null
@@ -423,13 +442,14 @@ let toolboxMenuOptions: Sprite[] = []
 let toolboxMenu_sprites: number[] = []
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
-let tempGenderVar: number = []
+let tempGenderVar = 0
 let Children: Sprite[] = []
 let sprSelectionIcon: Sprite = null
 let classRosterTitle: TextSprite = null
 let childrenMoodList: Sprite[] = []
 let sprRosterNames: TextSprite[] = []
 let ChildrenRosterList: Sprite[] = []
+let childrenSelected: Image[][] = []
 let sprTitle: Sprite = null
 let childrenNormal: Image[] = []
 let spr_mood: Sprite = null
@@ -437,15 +457,15 @@ let spr_speechBubble: Sprite = null
 let spr_roster: Sprite = null
 let spr_menu: Sprite = null
 let target: Sprite = null
-let RosterSelectionVar: number = []
-let rosterShown: number = []
+let RosterSelectionVar = 0
+let rosterShown = 0
 let objectList: Sprite[] = []
-let stillTalking: number = []
-let currentYpos: number = []
-let currentXpos: number = []
-let menuVisible: number = []
-let Debug: number = []
-let showtitle: number = []
+let stillTalking = 0
+let currentYpos = 0
+let currentXpos = 0
+let menuVisible = 0
+let Debug = 0
+let showtitle = 0
 scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
 showtitle = 1
@@ -483,21 +503,33 @@ game.onUpdateInterval(randint(1000, 3000), function () {
     if (!(rosterShown)) {
         dir = randint(0, 4)
         for (let value of Children) {
-            if (value.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
-                grid.move(value, -1, 0)
-                sprites.changeDataNumberBy(value, "xPos", -1)
-            } else if (value.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
-                grid.move(value, 1, 0)
-                sprites.changeDataNumberBy(value, "xPos", 1)
-            } else if (value.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
-                grid.move(value, 0, -1)
-                sprites.changeDataNumberBy(value, "yPos", -1)
-            } else if (value.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
-                grid.move(value, 0, 1)
-                sprites.changeDataNumberBy(value, "yPos", 1)
-            } else {
-                if (!(stillTalking)) {
-                    createSpeechBubble(value)
+            if (!(sprites.readDataBoolean(value, "highlighted"))) {
+                if (!(sprites.readDataBoolean(value, "selected"))) {
+                    if (value.tileKindAt(TileDirection.Left, assets.tile`myTile`) && dir == 0) {
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
+                        grid.move(value, -1, 0)
+                        sprites.changeDataNumberBy(value, "xPos", -1)
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
+                    } else if (value.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
+                        grid.move(value, 1, 0)
+                        sprites.changeDataNumberBy(value, "xPos", 1)
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
+                    } else if (value.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
+                        grid.move(value, 0, -1)
+                        sprites.changeDataNumberBy(value, "yPos", -1)
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
+                    } else if (value.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile`)
+                        grid.move(value, 0, 1)
+                        sprites.changeDataNumberBy(value, "yPos", 1)
+                        tiles.setTileAt(value.tilemapLocation(), assets.tile`myTile22`)
+                    } else {
+                        if (!(stillTalking)) {
+                            createSpeechBubble(value)
+                        }
+                    }
                 }
             }
         }
