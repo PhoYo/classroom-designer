@@ -11,6 +11,7 @@ namespace SpriteKind {
     export const mood = SpriteKind.create()
     export const SelectionIcon = SpriteKind.create()
     export const title = SpriteKind.create()
+    export const selector = SpriteKind.create()
 }
 /**
  * movement
@@ -129,12 +130,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             )
         }
     } else {
+        grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
         tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
-        positionUI()
         animation.stopAnimation(animation.AnimationTypes.All, sprTitle)
         sprTitle.setPosition(-1000, -1000)
-        showtitle = 0
         target.setFlag(SpriteFlag.Invisible, false)
+        showtitle = 0
+        positionUI()
     }
 })
 function setMood (mySprite: Sprite) {
@@ -290,6 +292,7 @@ function createChildren () {
         sprites.setDataBoolean(Children[index], "highlighted", false)
         sprites.setDataNumber(Children[index], "selected", 0)
         setMood(Children[index])
+        EntityList.push(Children[index])
     }
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -315,7 +318,35 @@ function drawToolMenuOptions () {
             toolboxMenuOptions[MenuIncrementValue].z = 2001
             MenuIncrementValue += 1
         }
+        spr_toolSelectionBox = sprites.create(img`
+            1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            1 . . . . . . . . . . . . . . . 
+            `, SpriteKind.selector)
+        spr_toolSelectionBox.setFlag(SpriteFlag.Invisible, false)
+        spr_toolSelectionBox.setPosition(target.x + 38 + 16, target.y - 44)
+        spr_toolSelectionBox.z = 3000
+        animation.runImageAnimation(
+        spr_toolSelectionBox,
+        assets.animation`myAnim13`,
+        200,
+        true
+        )
     } else {
+        spr_toolSelectionBox.setFlag(SpriteFlag.Invisible, true)
         for (let value3 of toolboxMenuOptions) {
             value3.setPosition(target.x + 600, target.y - 36)
             value3.z = 2001
@@ -395,6 +426,7 @@ function showMenu () {
         positionUI()
         drawToolMenuOptions()
     } else {
+        currentSelectedTool = 0
         menuVisible = 1
         target.setFlag(SpriteFlag.Invisible, true)
         drawToolMenuOptions()
@@ -403,22 +435,22 @@ function showMenu () {
 }
 function returnMood (Sprite2: Sprite) {
     sprTempMood = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
+        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
+        1 . . . . . . . . . . . . . . . 
         `, SpriteKind.mood)
     if (sprites.readDataString(Sprite2, "mood") == "sad") {
         sprTempMood.setImage(assets.image`myImage3`)
@@ -433,6 +465,8 @@ function returnMood (Sprite2: Sprite) {
  * Start
  */
 let sprTempMood: Sprite = null
+let currentSelectedTool = 0
+let spr_toolSelectionBox: Sprite = null
 let MenuIncrementValue = 0
 let childrenInfo: string[] = []
 let childrenHighlighted: Image[] = []
@@ -460,6 +494,7 @@ let target: Sprite = null
 let RosterSelectionVar = 0
 let rosterShown = 0
 let objectList: Sprite[] = []
+let EntityList: Sprite[] = []
 let stillTalking = 0
 let currentYpos = 0
 let currentXpos = 0
@@ -474,6 +509,7 @@ menuVisible = 0
 currentXpos = 15
 currentYpos = 6
 stillTalking = 0
+EntityList = []
 objectList = []
 let checkTilesArounditem: number[] = []
 rosterShown = 0
