@@ -13,6 +13,7 @@ namespace SpriteKind {
     export const title = SpriteKind.create()
     export const selector = SpriteKind.create()
     export const entity = SpriteKind.create()
+    export const emptySelection = SpriteKind.create()
 }
 /**
  * movement
@@ -58,6 +59,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function selectChild (sprite: Sprite) {
+    selectedEntity = sprite
     sprites.setDataBoolean(sprite, "highlighted", false)
     sprites.setDataBoolean(sprite, "selected", true)
     sprite.setPosition(sprite.x, sprite.y - 4)
@@ -67,7 +69,6 @@ function selectChild (sprite: Sprite) {
     200,
     true
     )
-    selectedEntity = sprite
 }
 function moveSelectedEntity () {
     if (tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`)) {
@@ -95,6 +96,11 @@ function moveSelectedEntity () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.Player)
+    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile22`)) {
+        tiles.setTileAt(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`)
+        console.log("tell me")
+    } else {
+    	
     }
 }
 /**
@@ -146,15 +152,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             }
         } else {
             for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-                if (value != selectedEntity) {
-                    if (value.kind() == SpriteKind.chil_01) {
-                        selectChild(value)
-                    }
+                if (value.kind() == SpriteKind.chil_01) {
+                    selectChild(value)
                 }
             }
-            if (selectedEntity) {
-                moveSelectedEntity()
-            }
+            moveSelectedEntity()
             animation.runImageAnimation(
             target,
             assets.animation`myAnim`,
@@ -195,8 +197,6 @@ function createSpeechBubble (child: Sprite) {
         spr_mood.setImage(assets.image`myImage3`)
     } else if (sprites.readDataString(child, "mood") == "happy") {
         spr_mood.setImage(assets.image`myImage2`)
-    } else {
-    	
     }
     timer.after(3000, function () {
         spr_speechBubble.setPosition(500, 500)
@@ -593,7 +593,7 @@ selectedEntity = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    `, SpriteKind.entity)
+    `, SpriteKind.emptySelection)
 tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
 target = sprites.create(assets.image`cursor`, SpriteKind.Player)
 target.setFlag(SpriteFlag.Invisible, true)
