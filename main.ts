@@ -453,12 +453,7 @@ function playerMovement (x: number, y: number) {
                 grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
                 removeTooltips()
                 deselect()
-                for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-                    if (value.kind() == SpriteKind.chil_01) {
-                        highlightChild(value)
-                        showTooltip(sprites.readDataString(value, "name"))
-                    }
-                }
+                highlightObject()
                 tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
                 positionUI()
                 grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
@@ -525,6 +520,14 @@ function returnMood (Sprite2: Sprite) {
     	
     }
     return sprTempMood
+}
+function highlightObject () {
+    for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
+        if (value.kind() == SpriteKind.chil_01) {
+            highlightChild(value)
+            showTooltip(sprites.readDataString(value, "name"))
+        }
+    }
 }
 /**
  * Start
@@ -651,21 +654,25 @@ game.onUpdateInterval(randint(200, 500), function () {
                     grid.move(randomChild, -1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                    highlightObject()
                 } else if (randomChild.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                    highlightObject()
                 } else if (randomChild.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 0, -1)
                     sprites.changeDataNumberBy(randomChild, "yPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                    highlightObject()
                 } else if (randomChild.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 0, 1)
                     sprites.changeDataNumberBy(randomChild, "yPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                    highlightObject()
                 } else {
                     if (!(stillTalking)) {
                         createSpeechBubble(randomChild)
