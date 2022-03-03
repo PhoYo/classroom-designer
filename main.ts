@@ -418,7 +418,21 @@ function playerMovement (x: number, y: number) {
             sprSelectionIcon.y += y * 20
             RosterSelectionVar += y
         } else if (menuVisible) {
-        	
+            if (y < 0) {
+                if (currentSelectedTool > 0) {
+                    currentSelectedTool += -1
+                    for (let index = 0; index <= toolboxMenuOptions.length - 1; index++) {
+                        toolboxMenuOptions[index].setPosition(toolboxMenuOptions[index].x, toolboxMenuOptions[index].y + 24)
+                    }
+                }
+            } else if (y > 0) {
+                if (currentSelectedTool < toolboxMenuOptions.length - 1) {
+                    currentSelectedTool += 1
+                    for (let index = 0; index <= toolboxMenuOptions.length - 1; index++) {
+                        toolboxMenuOptions[index].setPosition(toolboxMenuOptions[index].x, toolboxMenuOptions[index].y - 24)
+                    }
+                }
+            }
         } else {
             if (currentYpos <= 10 || currentYpos >= 4 || (currentXpos >= 9 || currentXpos <= 21)) {
                 currentYpos += y
