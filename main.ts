@@ -96,6 +96,7 @@ function moveSelectedEntity () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.Player)
+        grid.snap(selectedEntity)
     } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile22`)) {
         tiles.setTileAt(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`)
         console.log("tell me")
