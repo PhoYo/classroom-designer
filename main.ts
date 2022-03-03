@@ -14,6 +14,7 @@ namespace SpriteKind {
     export const selector = SpriteKind.create()
     export const entity = SpriteKind.create()
     export const emptySelection = SpriteKind.create()
+    export const tooltip = SpriteKind.create()
 }
 /**
  * movement
@@ -236,6 +237,11 @@ function createToolbox () {
         value7.setPosition(-1000, -1000)
     }
 }
+function showTooltip (text: string) {
+    tooltipText = textsprite.create(text, 1, 15)
+    tooltipText.setKind(SpriteKind.tooltip)
+    tooltipText.setPosition(target.x + 0, target.y - 14)
+}
 /**
  * Debug
  */
@@ -391,6 +397,9 @@ function drawToolMenuOptions () {
         }
     }
 }
+function removeTooltips () {
+    sprites.destroyAllSpritesOfKind(SpriteKind.tooltip)
+}
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(showtitle)) {
         if (!(rosterShown)) {
@@ -442,10 +451,12 @@ function playerMovement (x: number, y: number) {
                 currentYpos += y
                 currentXpos += x
                 grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
+                removeTooltips()
                 deselect()
                 for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
                     if (value.kind() == SpriteKind.chil_01) {
                         highlightChild(value)
+                        showTooltip(sprites.readDataString(value, "name"))
                     }
                 }
                 tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
@@ -547,6 +558,7 @@ let spr_roster: Sprite = null
 let spr_menu: Sprite = null
 let target: Sprite = null
 let selectedEntity: Sprite = null
+let tooltipText: TextSprite = null
 let RosterSelectionVar = 0
 let rosterShown = 0
 let objectList: Sprite[] = []
@@ -572,6 +584,7 @@ rosterShown = 0
 RosterSelectionVar = 0
 let menuChoiceNumber = 0
 let dir = 0
+tooltipText = textsprite.create("", 1, 15)
 let randomChild = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
