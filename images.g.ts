@@ -243,17 +243,6 @@ f f f f f f f f f . . . . . . .
 . 5 f 5 5 f 5 . 
 . . 5 5 5 5 . . 
 `;
-            case "image3":
-            case "cursor":return img`
-. . . . . . . 1 1 . . . . . . . 
-. . . . . 1 1 . . 1 1 . . . . . 
-. . 1 1 1 . . . . . . 1 1 1 . . 
-. 1 . . . . . . . . . . . . 1 . 
-1 1 . . . . . . . . . . . . 1 1 
-. . 1 1 1 . . . . . . 1 1 1 . . 
-. . . . . 1 1 . . 1 1 . . . . . 
-. . . . . . . 1 1 . . . . . . . 
-`;
             case "image18":
             case "cursor1":return img`
 . . . . . . . f f . . . . . . . 
@@ -598,129 +587,6 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 ................................................................................................................................................................
 ................................................................................................................................................................
 `;
-            case "image4":
-            case "myImage0":return img`
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-.fcccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-..fccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-...fcccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-....fccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-.....fcccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-.f....fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
-`;
             case "image26":
             case "myImage7":return img`
 . . . . . . . . 
@@ -731,25 +597,6 @@ fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 . . . . . . . . 
 . . . . . . . . 
 . . . . . . . . 
-`;
-            case "image27":
-            case "villager3WalkFront5":return img`
-. . . . . . . . . . . . 
-f f . . . . . . . . f . 
-f d f f f f f f f f d f 
-f d d d 4 4 4 4 d d d f 
-. f d 4 4 4 4 4 4 d f . 
-. . f 1 1 4 4 1 1 f . . 
-. f e 1 f 4 4 f 1 e f . 
-4 4 f 1 1 4 4 1 1 f 4 4 
-4 4 f d d f f d d f 4 4 
-4 4 f d d b b d d f 4 4 
-e e f e 4 4 4 4 e f e e 
-. . f b 1 1 1 1 b f . . 
-. . f 1 1 1 1 1 1 f . . 
-. . f 6 6 6 6 6 6 f . . 
-. . . f f f f f f . . . 
-. . . f f . . f f . . . 
 `;
             case "image2":
             case "villager3WalkFront6":return img`
@@ -903,25 +750,6 @@ e e f e 4 4 4 4 e f e e
 . . 1 1 1 f f f f f f 1 1 1 . . 
 . . . . 1 f f 1 1 f f 1 . . . . 
 `;
-            case "image31":
-            case "villager3WalkFront10":return img`
-. . . . 1 1 . . . . 1 1 . . . . 
-. . . 1 f f 1 1 1 1 f f 1 . . . 
-. . 1 f 3 3 f f f f 3 3 f 1 . . 
-. . . 1 f f 1 1 1 1 f f 1 . . . 
-. . 1 f 1 1 1 1 1 1 1 1 f 1 . . 
-. 1 f 1 1 f f 1 1 f f 1 1 f 1 . 
-. 1 f 1 f f 1 1 1 1 f f 1 f 1 . 
-. 1 f 1 f f f 1 1 f f f 1 f 1 . 
-. 1 f 1 1 1 1 3 3 1 1 9 1 f 1 . 
-. 1 1 f d 1 1 1 1 1 1 d f 1 . . 
-. . 1 f f d d d d d d f f 1 . . 
-. 1 1 1 f 3 3 3 3 3 3 f 1 1 1 . 
-. 1 1 d f 3 3 3 3 3 3 f d 1 1 . 
-. 1 1 1 f 3 3 3 3 3 3 f 1 1 1 . 
-. . 1 f 1 f f f f f f 1 1 1 . . 
-. . . . 1 f f . . f f 1 . . . . 
-`;
             case "image29":
             case "villager3WalkFront8":return img`
 . . . . . . . . . . . . . . . . 
@@ -941,23 +769,154 @@ e e f e 4 4 4 4 e f e e
 . . . . . f f f f f f . . . . . 
 . . . . . f f . . f f . . . . . 
 `;
-        }
-        return null;
-    })
-
-    helpers._registerFactory("animation", function(name: string) {
-        switch(helpers.stringTrim(name)) {
-            case "myAnim":
-            case "anim1":return [img`
-. . . . . . . 1 1 . . . . . . . 
-. . . . . 1 1 1 1 1 1 . . . . . 
-. . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
-. 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-. . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
-. . . . . 1 1 1 1 1 1 . . . . . 
-. . . . . . . 1 1 . . . . . . . 
-`, img`
+            case "image4":
+            case "myImage0":return img`
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+.fcccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+..fccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+...fcccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+....fccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+.....fcccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+......fccccccccccccccccccccccccccccccccccccccccccccccccccccc
+`;
+            case "image31":
+            case "villager3WalkFront10":return img`
+. . . . 1 1 . . . . 1 1 . . . . 
+. . . 1 f f 1 1 1 1 f f 1 . . . 
+. . 1 f 3 3 f f f f 3 3 f 1 . . 
+. . . 1 f f 1 1 1 1 f f 1 . . . 
+. . 1 f 1 1 1 1 1 1 1 1 f 1 . . 
+. 1 f 1 1 f f 1 1 f f 1 1 f 1 . 
+. 1 f 1 f f 1 1 1 1 f f 1 f 1 . 
+. 1 f 1 f f f 1 1 f f f 1 f 1 . 
+. 1 f 1 1 1 1 3 3 1 1 9 1 f 1 . 
+. 1 1 f d 1 1 1 1 1 1 d f 1 . . 
+. . 1 f f d d d d d d f f 1 . . 
+. 1 1 1 f 3 3 3 3 3 3 f 1 1 1 . 
+. 1 1 d f 3 3 3 3 3 3 f d 1 1 . 
+. 1 1 1 f 3 3 3 3 3 3 f 1 1 1 . 
+. . 1 1 1 f f f f f f 1 1 1 . . 
+. . . . 1 f f . . f f 1 . . . . 
+`;
+            case "image3":
+            case "cursor":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
 . . . . . . . 1 1 . . . . . . . 
 . . . . . 1 1 . . 1 1 . . . . . 
 . . 1 1 1 . . . . . . 1 1 1 . . 
@@ -966,7 +925,74 @@ e e f e 4 4 4 4 e f e e
 . . 1 1 1 . . . . . . 1 1 1 . . 
 . . . . . 1 1 . . 1 1 . . . . . 
 . . . . . . . 1 1 . . . . . . . 
-`];
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image27":
+            case "cursor6":return img`
+. . . . . . . . . . . . . . . . 
+. . . 2 2 2 2 2 2 2 2 2 2 . . . 
+. . . . 2 2 2 2 2 2 2 2 . . . . 
+. . . . . 2 2 2 2 2 2 . . . . . 
+. . . . . 2 2 2 2 2 2 . . . . . 
+. . . . . 1 2 2 2 2 1 . . . . . 
+. . 1 1 1 . 2 2 2 2 . 1 1 1 . . 
+. 1 . . . . . 2 2 . . . . . 1 . 
+1 1 . . . . . 2 2 . . . . . 1 1 
+. . 1 1 1 . . . . . . 1 1 1 . . 
+. . . . . 1 1 . . 1 1 . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image32":
+            case "myImage8":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image33":
+            case "villager3WalkFront5":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . c . c . c . c . c . . . 
+. . . . . c . c . c . c . . . . 
+. . . . c . c . c . c . c . . . 
+`;
+        }
+        return null;
+    })
+
+    helpers._registerFactory("animation", function(name: string) {
+        switch(helpers.stringTrim(name)) {
             case "myAnim0":
             case "anim2":return [img`
 . . . . . . . . . . . . . . . . 
@@ -1211,6 +1237,310 @@ d 1 f 3 3 3 3 3 3 f 1 1
 . . . f f f f f f . . . 
 . . . f f . . f f . . . 
 . . . . . . . . . . . . 
+`];
+            case "myAnim7":
+            case "anim9":return [img`
+. . 1 1 . . . . . . . . 1 . . . 
+. 1 f f 1 1 1 1 1 1 1 1 f 1 . . 
+. 1 f d f f f f f f f f d f 1 . 
+. 1 f d d d 4 4 4 4 d d d f 1 . 
+. . 1 f d 4 4 4 4 4 4 d f 1 . . 
+. . . 1 f 1 1 4 4 1 1 f 1 . . . 
+. . 1 f e 1 f 4 4 f 1 e f 1 . . 
+. 1 f 4 4 1 1 4 4 1 1 4 4 f 1 . 
+. 1 f e 4 d d f f d d 4 e f 1 . 
+. . 1 f e d d b b d d e f 1 . . 
+. . 1 f f e 4 4 4 4 e f f 1 . . 
+. 1 e 4 f b 1 1 1 1 b f 4 e 1 . 
+. 1 4 d f 1 1 1 1 1 1 f d 4 1 . 
+. 1 4 4 f 6 6 6 6 6 6 f 4 4 1 . 
+. . 1 1 1 f f f f f f 1 1 1 . . 
+. . . . 1 f f 1 1 f f 1 . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . f f . . . . . . . . f . . . 
+. . f d f f f f f f f f d f . . 
+. . f d d d 4 4 4 4 d d d f . . 
+. . . f d 4 4 4 4 4 4 d f . . . 
+. . . . f 1 1 4 4 1 1 f . . . . 
+. . . f e 1 f 4 4 f 1 e f . . . 
+. . f 4 4 1 1 4 4 1 1 4 4 f . . 
+. . f e 4 d d f f d d 4 e f . . 
+. . . f e d d b b d d e f . . . 
+. . . f f e 4 4 4 4 e f f . . . 
+. . e 4 f b 1 1 1 1 b f 4 e . . 
+. . 4 d f 1 1 1 1 1 1 f d 4 . . 
+. . 4 4 f 6 6 6 6 6 6 f 4 4 . . 
+. . . . . f f f f f f . . . . . 
+. . . . . f f . . f f . . . . . 
+`];
+            case "myAnim8":
+            case "anim10":return [img`
+. . . 1 1 . . . . . . 1 1 . . . 
+. . 1 f f 1 . . . . 1 f f 1 . . 
+. 1 f 1 1 f 1 . . 1 f 1 1 f 1 . 
+. 1 f 1 f 1 . . . . 1 f 1 f 1 . 
+. . 1 f 2 f 1 1 1 1 f 2 f 1 . . 
+. . . 1 f 2 f f f f 2 f 1 . . . 
+. . 1 f e 2 2 2 2 2 2 e f 1 . . 
+. 1 f 2 2 2 2 2 2 2 2 2 2 f 1 . 
+. 1 f e 2 2 2 2 2 f f 2 e f 1 . 
+. . 1 f e 2 2 2 2 2 2 e f 1 . . 
+. . 1 f f e 2 2 2 2 e f f 1 . . 
+. 1 e 2 f b 1 1 1 1 b f 2 e 1 . 
+. 1 2 d f 1 1 1 1 1 1 f d 2 1 . 
+. 1 2 2 f 6 6 6 6 6 6 f 2 2 1 . 
+. . 1 1 1 f f f f f f 1 1 1 . . 
+. . . . 1 f f 1 1 f f 1 . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . f f . . . . . . f f . . . 
+. . f 1 1 f . . . . f 1 1 f . . 
+. . f 1 f . . . . . . f 1 f . . 
+. . . f 2 f . . . . f 2 f . . . 
+. . . . f 2 f f f f 2 f . . . . 
+. . . f e 2 2 2 2 2 2 e f . . . 
+. . f 2 2 2 2 2 2 2 2 2 2 f . . 
+. . f e 2 2 2 2 2 f f 2 e f . . 
+. . . f e 2 2 2 2 2 2 e f . . . 
+. . . f f e 2 2 2 2 e f f . . . 
+. . e 2 f b 1 1 1 1 b f 2 e . . 
+. . 2 d f 1 1 1 1 1 1 f d 2 . . 
+. . 2 2 f 6 6 6 6 6 6 f 2 2 . . 
+. . . . . f f f f f f . . . . . 
+. . . . . f f . . f f . . . . . 
+`];
+            case "myAnim11":
+            case "anim13":return [img`
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 f f 1 1 . . . . . 
+. . . . 1 f f e e f f 1 . . . . 
+. . 1 1 f e e e e e e f 1 1 . . 
+. 1 f f e e e e e e e e f f 1 . 
+. 1 d d e d d e e d d e d d 1 . 
+. 1 d e e d f d d f d e e d 1 . 
+. 1 d d e d f d d f d e d d 1 . 
+. 1 f f e d d e e d d e f f 1 . 
+. . 1 f e e d d d d e e f 1 . . 
+. . 1 f e d d d d d d e f 1 . . 
+. 1 e e f 1 1 d d 1 1 f e e 1 . 
+. 1 e d f 1 1 1 1 1 1 f d e 1 . 
+. 1 e e f 6 6 6 6 6 6 f e e 1 . 
+. . 1 1 1 f f f f f f 1 1 1 . . 
+. . . . 1 f f 1 1 f f 1 . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . f f . . . . . . . 
+. . . . . f f e e f f . . . . . 
+. . . . f e e e e e e f . . . . 
+. . f f e e e e e e e e f f . . 
+. . d d e d d e e d d e d d . . 
+. . d e e d f d d f d e e d . . 
+. . d d e d f d d f d e d d . . 
+. . f f e d d e e d d e f f . . 
+. . . f e e d d d d e e f . . . 
+. . . f e d d d d d d e f . . . 
+. . e e f 1 1 d d 1 1 f e e . . 
+. . e d f 1 1 1 1 1 1 f d e . . 
+. . e e f 6 6 6 6 6 6 f e e . . 
+. . . . . f f f f f f . . . . . 
+. . . . . f f . . f f . . . . . 
+`];
+            case "myAnim9":
+            case "anim11":return [img`
+. . . . . . . . . . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . 1 f f f f f f 1 . . . . 
+. . 1 1 f 9 9 9 9 9 9 f 1 1 . . 
+. 1 f f 9 9 9 9 9 9 9 9 f f 1 . 
+. 1 9 3 9 9 9 9 9 9 9 9 3 9 1 . 
+. 1 3 3 9 9 f 9 9 f 9 9 3 3 1 . 
+. 1 9 3 9 9 f 9 9 f 9 9 3 9 1 . 
+. 1 f 9 9 9 9 9 9 9 9 9 9 f 1 . 
+. . 1 f f 8 9 9 9 9 8 f f 1 . . 
+. . 1 1 1 f 8 9 9 8 f 1 1 1 . . 
+. 1 8 9 f e e 9 9 e e f 9 8 1 . 
+. 1 9 d f e e 9 9 e e f d 9 1 . 
+. 1 9 9 f e e 9 9 9 e f 9 9 1 . 
+. . 1 1 1 f f f f f f 1 1 1 . . 
+. . . . 1 f f 1 1 f f 1 . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . f f f f f f . . . . . 
+. . . . f 9 9 9 9 9 9 f . . . . 
+. . f f 9 9 9 9 9 9 9 9 f f . . 
+. . 9 3 9 9 9 9 9 9 9 9 3 9 . . 
+. . 3 3 9 9 f 9 9 f 9 9 3 3 . . 
+. . 9 3 9 9 f 9 9 f 9 9 3 9 . . 
+. . f 9 9 9 9 9 9 9 9 9 9 f . . 
+. . . f f 8 9 9 9 9 8 f f . . . 
+. . . . . f 8 9 9 8 f . . . . . 
+. . 8 9 f e e 9 9 e e f 9 8 . . 
+. . 9 d f e e 9 9 e e f d 9 . . 
+. . 9 9 f e e 9 9 9 e f 9 9 . . 
+. . . . . f f f f f f . . . . . 
+. . . . . f f . . f f . . . . . 
+`];
+            case "myAnim10":
+            case "anim12":return [img`
+. . . . 1 1 . . . . 1 1 . . . . 
+. . . 1 f f 1 1 1 1 f f 1 . . . 
+. . 1 f 3 3 f f f f 3 3 f 1 . . 
+. . . 1 f f 1 1 1 1 f f 1 . . . 
+. . 1 f 1 1 1 1 1 1 1 1 f 1 . . 
+. 1 f 1 1 f f 1 1 f f 1 1 f 1 . 
+. 1 f 1 f f 1 1 1 1 f f 1 f 1 . 
+. 1 f 1 f f f 1 1 f f f 1 f 1 . 
+. 1 f 1 1 1 1 3 3 1 1 9 1 f 1 . 
+. 1 1 f d 1 1 1 1 1 1 d f 1 . . 
+. . 1 f f d d d d d d f f 1 . . 
+. 1 1 1 f 3 3 3 3 3 3 f 1 1 1 . 
+. 1 1 d f 3 3 3 3 3 3 f d 1 1 . 
+. 1 1 1 f 3 3 3 3 3 3 f 1 1 1 . 
+. . 1 f 1 f f f f f f 1 1 1 . . 
+. . . . 1 f f . . f f 1 . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . f f . . . . f f . . . . 
+. . . f 3 3 f f f f 3 3 f . . . 
+. . . . f f 1 1 1 1 f f . . . . 
+. . . f 1 1 1 1 1 1 1 1 f . . . 
+. . f 1 1 f f 1 1 f f 1 1 f . . 
+. . f 1 f f 1 1 1 1 f f 1 f . . 
+. . f 1 f f f 1 1 f f f 1 f . . 
+. . f 1 1 1 1 3 3 1 1 9 1 f . . 
+. . . f d 1 1 1 1 1 1 d f . . . 
+. . . f f d d d d d d f f . . . 
+. . 1 1 f 3 3 3 3 3 3 f 1 1 . . 
+. . 1 d f 3 3 3 3 3 3 f d 1 . . 
+. . 1 1 f 3 3 3 3 3 3 f 1 1 . . 
+. . . . . f f f f f f . . . . . 
+. . . . . f f . . f f . . . . . 
+`];
+            case "myAnim12":
+            case "anim14":return [img`
+. . . . . . . . . . . . . . . . 
+. . . 2 2 2 2 2 2 2 2 2 2 . . . 
+. . . . 2 2 2 2 2 2 2 2 . . . . 
+. . . . . 2 2 2 2 2 2 . . . . . 
+. . . . . 2 2 2 2 2 2 . . . . . 
+. . . . . 1 2 2 2 2 1 . . . . . 
+. . 1 1 1 . 2 2 2 2 . 1 1 1 . . 
+. 1 . . . . . 2 2 . . . . . 1 . 
+1 1 . . . . . 2 2 . . . . . 1 1 
+. . 1 1 1 . . . . . . 1 1 1 . . 
+. . . . . 1 1 . . 1 1 . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, img`
+. . . 2 2 2 2 2 2 2 2 2 2 . . . 
+. . . . 2 2 2 2 2 2 2 2 . . . . 
+. . . . . 2 2 2 2 2 2 . . . . . 
+. . . . . 2 2 2 2 2 2 . . . . . 
+. . . . . . 2 2 2 2 . . . . . . 
+. . . . . 1 2 2 2 2 1 . . . . . 
+. . 1 1 1 . . 2 2 . . 1 1 1 . . 
+. 1 . . . . . 2 2 . . . . . 1 . 
+1 1 . . . . . . . . . . . . 1 1 
+. . 1 1 1 . . . . . . 1 1 1 . . 
+. . . . . 1 1 . . 1 1 . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`];
+            case "myAnim":
+            case "anim1":return [img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+. 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+. . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+. . . . . 1 1 1 1 1 1 . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . 1 1 . . 1 1 . . . . . 
+. . 1 1 1 . . . . . . 1 1 1 . . 
+. 1 . . . . . . . . . . . . 1 . 
+1 1 . . . . . . . . . . . . 1 1 
+. . 1 1 1 . . . . . . 1 1 1 . . 
+. . . . . 1 1 . . 1 1 . . . . . 
+. . . . . . . 1 1 . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`];
+            case "myAnim13":
+            case "anim15":return [img`
+.1111111111111111111111.
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+1......................1
+.1111111111111111111111.
+`, img`
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
+........................
 `];
         }
         return null;
