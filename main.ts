@@ -522,10 +522,12 @@ function returnMood (Sprite2: Sprite) {
     return sprTempMood
 }
 function highlightObject () {
-    for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-        if (value.kind() == SpriteKind.chil_01) {
-            highlightChild(value)
-            showTooltip(sprites.readDataString(value, "name"))
+    if (!(showtitle)) {
+        for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
+            if (value.kind() == SpriteKind.chil_01) {
+                highlightChild(value)
+                showTooltip(sprites.readDataString(value, "name"))
+            }
         }
     }
 }
