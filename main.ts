@@ -150,6 +150,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         if (menuVisible || rosterShown) {
             if (rosterShown) {
                 game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
+            } else if (menuVisible) {
+                newTempTool = sprites.create(toolboxMenuOptions[currentSelectedTool].image, SpriteKind.entity)
+                selectedEntity = newTempTool
+                EntityList.push(newTempTool)
+                showMenu()
             }
         } else {
             for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
@@ -515,19 +520,20 @@ function returnMood (Sprite2: Sprite) {
  * Start
  */
 let sprTempMood: Sprite = null
-let currentSelectedTool = 0
 let spr_toolSelectionBox: Sprite = null
 let MenuIncrementValue = 0
 let childrenInfo: string[] = []
 let childrenHighlighted: Image[] = []
 let debug_yPos: TextSprite = null
 let debug_xPos: TextSprite = null
-let toolboxMenuOptions: Sprite[] = []
 let toolboxMenu_sprites: number[] = []
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
 let tempGenderVar = 0
 let sprTitle: Sprite = null
+let currentSelectedTool = 0
+let toolboxMenuOptions: Sprite[] = []
+let newTempTool: Sprite = null
 let Children: Sprite[] = []
 let sprSelectionIcon: Sprite = null
 let classRosterTitle: TextSprite = null
