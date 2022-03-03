@@ -77,7 +77,10 @@ function moveSelectedEntity () {
         sprites.setDataBoolean(selectedEntity, "selected", false)
         sprites.setDataBoolean(selectedEntity, "highlighted", true)
         animation.stopAnimation(animation.AnimationTypes.All, selectedEntity)
-        selectedEntity.setPosition(selectedEntity.x, selectedEntity.y + 4)
+        grid.snap(selectedEntity)
+        music.knock.play()
+        scene.cameraShake(2, 100)
+        tiles.setTileAt(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile22`)
         selectedEntity = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -95,13 +98,9 @@ function moveSelectedEntity () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Player)
-        grid.snap(selectedEntity)
+            `, SpriteKind.emptySelection)
     } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile22`)) {
         tiles.setTileAt(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`)
-        console.log("tell me")
-    } else {
-    	
     }
 }
 /**

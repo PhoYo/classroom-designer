@@ -39,11 +39,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "myImage3"
     },
-    "image18": {
-        "data": "hwQQABAAAAAAAP///w8AAADwDgAAAAAAAO/uAAAAAAAA7+4AAAAAAADv7gAAAAAA8O7uDgAAAADw7u4OAAAAAO/u7u7///8A7+7u7gAAAADw7u4OAAAAAPDu7g4AAAAAAO/uAAAAAAAA7+4AAAAAAADv7gAAAAAAAPAOAAAAAAAAAP///wAAAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "cursor1"
-    },
     "image17": {
         "data": "hwQQAAgAAAAAAA8AAPAPAAD//wAA//8AAP//APD//w/w//8P///////////w//8P8P//DwD//wAA//8AAP//AADwDwAAAA8A",
         "mimeType": "image/x-mkcd-f4",
@@ -163,6 +158,11 @@
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAAAAAAAAAAAwAAAAAAADAwAAAAAAAAAAMAAAAAAAAwMAAAAAAAAAADAAAAAAAAMDAAAAAAAAAAAwAAAAAAADAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "villager3WalkFront5"
+    },
+    "image18": {
+        "data": "hwQQABAAAAAAAP///wAAAADwDgAAAAAAAO/uAAAAAAAA7+4AAAAAAADv7gAAAAAA8O7uDgAAAADw7u4OAAAAAO/u7u7//w8A7+7u7gAAAADw7u4OAAAAAPDu7g4AAAAAAO/uAAAAAAAA7+4AAAAAAADv7gAAAAAAAPAOAAAAAAAAAP///wAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "cursor1"
     },
     "anim2": {
         "namespace": "myAnimations",

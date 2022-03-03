@@ -243,25 +243,6 @@ f f f f f f f f f . . . . . . .
 . 5 f 5 5 f 5 . 
 . . 5 5 5 5 . . 
 `;
-            case "image18":
-            case "cursor1":return img`
-. . . . . . . f f . . . . . . . 
-. . . . . f f e e f f . . . . . 
-. . f f f e e e e e e f f f . . 
-. f e e e e e e e e e e e e f . 
-f e e e e e e e e e e e e e e f 
-f . e e e e e e e e e e e e . f 
-f . . . . e e e e e e . . . . f 
-f . . . . . . e e . . . . . . f 
-f . . . . . . f . . . . . . . f 
-f . . . . . . f . . . . . . . f 
-f . . . . . . f . . . . . . . . 
-. . . . . . . f . . . . . . . . 
-. . . . . . . f . . . . . . . . 
-. . . . . . . f . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`;
             case "image17":
             case "cursor0":return img`
 . . . . . . . f f . . . . . . . 
@@ -986,6 +967,25 @@ fccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 . . . . c . c . c . c . c . . . 
 . . . . . c . c . c . c . . . . 
 . . . . c . c . c . c . c . . . 
+`;
+            case "image18":
+            case "cursor1":return img`
+. . . . . . . f f . . . . . . . 
+. . . . . f f e e f f . . . . . 
+. . f f f e e e e e e f f f . . 
+. f e e e e e e e e e e e e f . 
+f e e e e e e e e e e e e e e f 
+f . e e e e e e e e e e e e . f 
+f . . . . e e e e e e . . . . f 
+f . . . . . . e e . . . . . . f 
+f . . . . . . f . . . . . . . f 
+f . . . . . . f . . . . . . . f 
+. . . . . . . f . . . . . . . . 
+. . . . . . . f . . . . . . . . 
+. . . . . . . f . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
 `;
         }
         return null;
