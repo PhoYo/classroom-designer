@@ -236,7 +236,7 @@ function depthSorting () {
 function createToolbox () {
     toolboxMenu_sprites = [0, 1]
     toolboxMenuOptions = [
-    sprites.create(assets.image`cursor1`, SpriteKind.object),
+    sprites.create(assets.image`cursor8`, SpriteKind.object),
     sprites.create(assets.image`cursor0`, SpriteKind.object),
     sprites.create(assets.image`cursor2`, SpriteKind.object),
     sprites.create(assets.image`cursor3`, SpriteKind.object),
