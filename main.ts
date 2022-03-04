@@ -155,6 +155,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 newTempTool = sprites.create(toolboxMenuOptions[currentSelectedTool].image, SpriteKind.entity)
                 selectedEntity = newTempTool
                 EntityList.push(newTempTool)
+                if (selectedEntity.kind() != SpriteKind.emptySelection) {
+                    grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
+                    selectedEntity.setPosition(selectedEntity.x, selectedEntity.y - 4)
+                }
                 showMenu()
             }
         } else {
