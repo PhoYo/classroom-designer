@@ -271,10 +271,12 @@ function createToolbox () {
     }
 }
 function showTooltip (text: string) {
-    tooltipText = textsprite.create(text, 1, 15)
-    tooltipText.z = 2000
-    tooltipText.setKind(SpriteKind.tooltip)
-    tooltipText.setPosition(target.x + 0, target.y - 14)
+    if (selectedEntity.kind() == SpriteKind.emptySelection) {
+        tooltipText = textsprite.create(text, 1, 15)
+        tooltipText.z = 2000
+        tooltipText.setKind(SpriteKind.tooltip)
+        tooltipText.setPosition(target.x + 0, target.y - 14)
+    }
 }
 // Debug
 function showDebug () {
@@ -516,12 +518,14 @@ function createTitle () {
     )
 }
 function showTooltipChildInfo (text: string) {
-    textStringArray = text.split(":")
-    for (let index = 0; index <= textStringArray.length - 1; index++) {
-        tooltipText = textsprite.create(textStringArray[index], 1, 15)
-        tooltipText.setPosition(target.x + 0, target.y + 30 + 8 * index)
-        tooltipText.z = 2000
-        tooltipText.setKind(SpriteKind.tooltip)
+    if (selectedEntity.kind() == SpriteKind.emptySelection) {
+        textStringArray = text.split(":")
+        for (let index = 0; index <= textStringArray.length - 1; index++) {
+            tooltipText = textsprite.create(textStringArray[index], 1, 15)
+            tooltipText.setPosition(target.x + 0, target.y + 30 + 8 * index)
+            tooltipText.z = 2000
+            tooltipText.setKind(SpriteKind.tooltip)
+        }
     }
 }
 function showMenu () {
