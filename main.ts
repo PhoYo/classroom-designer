@@ -519,7 +519,7 @@ function showTooltipChildInfo (text: string) {
     textStringArray = text.split(":")
     for (let index = 0; index <= textStringArray.length - 1; index++) {
         tooltipText = textsprite.create(textStringArray[index], 1, 15)
-        tooltipText.setPosition(target.x + 0, target.y + 26 + 8 * index)
+        tooltipText.setPosition(target.x + 0, target.y + 30 + 8 * index)
         tooltipText.z = 2000
         tooltipText.setKind(SpriteKind.tooltip)
     }
