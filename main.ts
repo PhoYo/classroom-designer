@@ -55,6 +55,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         	
         } else {
             showMenu()
+            showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
         }
     } else {
     	
@@ -257,7 +258,7 @@ function createToolbox () {
     toolboxMenuNames = [
     "desk",
     "teddy bear",
-    "name 3",
+    "globe",
     "name 4",
     "name 5",
     "name 6"
@@ -594,8 +595,6 @@ let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
 let tempGenderVar = 0
 let sprTitle: Sprite = null
-let currentSelectedTool = 0
-let toolboxMenuOptions: Sprite[] = []
 let newTempTool: Sprite = null
 let Children: Sprite[] = []
 let sprSelectionIcon: Sprite = null
@@ -604,6 +603,8 @@ let childrenMoodList: Sprite[] = []
 let sprRosterNames: TextSprite[] = []
 let ChildrenRosterList: Sprite[] = []
 let childrenSelected: Image[][] = []
+let currentSelectedTool = 0
+let toolboxMenuOptions: Sprite[] = []
 let childrenNormal: Image[] = []
 let spr_mood: Sprite = null
 let spr_speechBubble: Sprite = null
@@ -702,25 +703,33 @@ game.onUpdateInterval(randint(200, 500), function () {
                     grid.move(randomChild, -1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    highlightObject()
+                    if (!(menuVisible)) {
+                        highlightObject()
+                    }
                 } else if (randomChild.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    highlightObject()
+                    if (!(menuVisible)) {
+                        highlightObject()
+                    }
                 } else if (randomChild.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 0, -1)
                     sprites.changeDataNumberBy(randomChild, "yPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    highlightObject()
+                    if (!(menuVisible)) {
+                        highlightObject()
+                    }
                 } else if (randomChild.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 0, 1)
                     sprites.changeDataNumberBy(randomChild, "yPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    highlightObject()
+                    if (!(menuVisible)) {
+                        highlightObject()
+                    }
                 }
             }
         }
