@@ -976,25 +976,6 @@ f . . . . . . f . . . . . . . f
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
-            case "image17":
-            case "cursor0":return img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . e e . . . e . . . . . . 
-. . . . e e e e e e . . . . . . 
-. . . . . e e f e f . . . . . . 
-. . . . . e e e e e . . . . . . 
-. . . . . e e d d f . . . . . . 
-. . . . e e e e d d e . . . . . 
-. . . e e e e e e e e . . . . . 
-. . . e e e e d d d e e . e . . 
-. . . e e e e d d d e e e d . . 
-. . . c e e e e e d e e e d . . 
-. . c . c e e d e c c c c c . . 
-. . . c . c e d e c . c . c . . 
-. . . . c . c . c . c . c . . . 
-. . . . . c . c . . . . . . . . 
-`;
             case "image34":
             case "cursor7":return img`
 ........11........
@@ -1049,6 +1030,25 @@ f . . . . . . f . . . . . . . f
 ................................
 ................................
 ................................
+`;
+            case "image17":
+            case "cursor0":return img`
+. . . . . . . . . . . . . . . . 
+. . . . f f . . . f . . . . . . 
+. . . f e e f f f e f . . . . . 
+. . . f e e e e e e f . . . . . 
+. . . . f e e f e f f . . . . . 
+. . . . f e e e e e f . . . . . 
+. . . . f e e d d f f . . . . . 
+. . . f e e e e d d e f . . . . 
+. . f e e e e e e e e f . f . . 
+. . f e e e e d d d e e f e . . 
+. . . e e e f f f d e e e d . . 
+. . . c e e e e e f e e e d . . 
+. . c . c e e d e f c c c c . . 
+. . . c . c e d e f . c . c . . 
+. . . . c . c . c . c . c . . . 
+. . . . . c . c . . . . . . . . 
 `;
         }
         return null;
