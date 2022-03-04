@@ -17,9 +17,6 @@ namespace SpriteKind {
     export const tooltip = SpriteKind.create()
     export const object = SpriteKind.create()
 }
-/**
- * Start
- */
 // movement
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(0, -1)
@@ -105,6 +102,7 @@ function moveSelectedEntity () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.emptySelection)
+        depthSorting()
     } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile22`)) {
         tiles.setTileAt(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`)
     } else if (!(tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`))) {
@@ -158,7 +156,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             } else if (menuVisible) {
                 newTempTool = sprites.create(toolboxMenuOptions[currentSelectedTool].image, SpriteKind.entity)
                 selectedEntity = newTempTool
-                EntityList.push(newTempTool)
+                sprites.setDataString(newTempTool, "name", sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
+                objectList.push(newTempTool)
+                if (sprites.readDataString(newTempTool, "name") == "Meditating Carpet") {
+                    newTempTool.z = 1
+                }
                 if (selectedEntity.kind() != SpriteKind.emptySelection) {
                     grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
                     selectedEntity.setPosition(selectedEntity.x, selectedEntity.y - 4)
@@ -259,7 +261,7 @@ function createToolbox () {
     "desk",
     "teddy bear",
     "globe",
-    "name 4",
+    "Meditating Carpet",
     "name 5",
     "name 6"
     ]
@@ -353,7 +355,7 @@ function createChildren () {
     "I have trouble:concentrating in class:which sometimes gets:me into trouble",
     "I get confused:with numbers as they:are hard to visualise",
     "When there is lots:of noise I struggle to:concentrate on reading",
-    "I tend to make a lot:of mistakes that I:scribble out my work:is a bit messy",
+    "I tend to make a lot:of mistakes:",
     "I get scared and feel:anxious in a:classroom environment",
     "I get very confused:when I am reading and:find it hard to relate:words to sounds"
     ]
@@ -413,7 +415,7 @@ function drawToolMenuOptions () {
             1 . . . . . . . . . . . . . . . 
             `, SpriteKind.selector)
         spr_toolSelectionBox.setFlag(SpriteFlag.Invisible, false)
-        spr_toolSelectionBox.setPosition(target.x + 38 + 16, target.y - 44)
+        spr_toolSelectionBox.setPosition(target.x + 34 + 16, target.y - 48)
         spr_toolSelectionBox.z = 3000
         animation.runImageAnimation(
         spr_toolSelectionBox,
@@ -570,6 +572,9 @@ function returnMood (Sprite2: Sprite) {
     }
     return sprTempMood
 }
+/**
+ * Start
+ */
 function highlightObject () {
     if (!(showtitle)) {
         for (let value8 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
