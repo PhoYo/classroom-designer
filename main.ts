@@ -223,6 +223,9 @@ function createSpeechBubble (child: Sprite) {
         stillTalking = 0
     })
 }
+info.onCountdownEnd(function () {
+	
+})
 // Depth sorting
 function depthSorting () {
     target.z = target.bottom / 100
@@ -343,13 +346,13 @@ function createChildren () {
     "Caleb"
     ]
     childrenInfo = [
-    "child info 1",
-    "child info 2",
-    "child info 3",
-    "child info 4",
-    "child info 5",
-    "child info 6",
-    "child info 7"
+    "Sometimes I have trouble understanding my teacher as English is not my first language",
+    "I have trouble concentrating in class, which sometimes gets me into trouble",
+    "I get confused with numbers as they are hard to visualise",
+    "I find it hard to read in front of class, and when there is lots of noise I struggle to concentrate on reading",
+    "I tend to make a lot of mistakes that I scribble out, my work is a bit messy :(",
+    "I get scared and feel anxious in a classroom environment",
+    "I get very confused when I am reading and find it hard to relate words to sounds"
     ]
     for (let index2 = 0; index2 <= Children.length - 1; index2++) {
         tiles.placeOnRandomTile(Children[index2], assets.tile`myTile`)
@@ -511,6 +514,12 @@ function createTitle () {
     true
     )
 }
+function showTooltipChildInfo (text: string) {
+    tooltipText = textsprite.create(text, 1, 15)
+    tooltipText.z = 2000
+    tooltipText.setKind(SpriteKind.tooltip)
+    tooltipText.setPosition(target.x + 0, target.y + 30)
+}
 function showMenu () {
     if (menuVisible) {
         menuVisible = 0
@@ -559,6 +568,7 @@ function highlightObject () {
             if (value8.kind() == SpriteKind.chil_01) {
                 highlightChild(value8)
                 showTooltip(sprites.readDataString(value8, "name"))
+                showTooltipChildInfo(sprites.readDataString(value8, "info"))
             }
         }
     }
