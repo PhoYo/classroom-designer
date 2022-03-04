@@ -45,6 +45,9 @@ function deselect () {
         }
     }
 }
+function playMusic () {
+	
+}
 // buttons
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(showtitle)) {
@@ -185,6 +188,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         target.setFlag(SpriteFlag.Invisible, false)
         showtitle = 0
         positionUI()
+        music.baDing.play()
+        info.startCountdown(180)
     }
 })
 function setMood (mySprite: Sprite) {
@@ -674,6 +679,7 @@ createUI()
 if (Debug) {
     showDebug()
 }
+playMusic()
 // Children tick
 game.onUpdateInterval(randint(200, 500), function () {
     if (!(rosterShown)) {
