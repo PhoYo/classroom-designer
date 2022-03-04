@@ -164,6 +164,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "cursor0"
     },
+    "image34": {
+        "data": "hwQSABEAAAAAABAREQEAAAAAAAAAAPH//x8AAAAAAAAAEO8REQEAAAAAAAAA8e4eAAAAAAAAAAAA8e4eAAAAAAAAAAAA8e4eAAAAAAAAAAAQ7+7uAQAAAAAAAAAQ7+7uERERAAAAAADx7u7u/v//AQAAAADx7u7uHhERAAAAAAAQ7+7uAQAAAAAAAAAQ7+7uAQAAAAAAAAAA8e4eAAAAAAAAAAAA8e4eAAAAAAAAAAAA8e4eAAAAAAAAAAAAEO8REQEAAAAAAAAAAPH//x8AAAAAAAAAABAREQEAAAAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "cursor7"
+    },
     "anim2": {
         "namespace": "myAnimations",
         "id": "anim2",

@@ -15,6 +15,7 @@ namespace SpriteKind {
     export const entity = SpriteKind.create()
     export const emptySelection = SpriteKind.create()
     export const tooltip = SpriteKind.create()
+    export const object = SpriteKind.create()
 }
 /**
  * Start
@@ -226,15 +227,34 @@ function depthSorting () {
 function createToolbox () {
     toolboxMenu_sprites = [0, 1]
     toolboxMenuOptions = [
-    sprites.create(assets.image`cursor1`, SpriteKind.table),
-    sprites.create(assets.image`cursor0`, SpriteKind.table),
-    sprites.create(assets.image`cursor2`, SpriteKind.table),
-    sprites.create(assets.image`cursor3`, SpriteKind.table),
-    sprites.create(assets.image`cursor4`, SpriteKind.Player),
-    sprites.create(assets.image`cursor5`, SpriteKind.Player)
+    sprites.create(assets.image`cursor1`, SpriteKind.object),
+    sprites.create(assets.image`cursor0`, SpriteKind.object),
+    sprites.create(assets.image`cursor2`, SpriteKind.object),
+    sprites.create(assets.image`cursor3`, SpriteKind.object),
+    sprites.create(assets.image`cursor4`, SpriteKind.object),
+    sprites.create(assets.image`cursor5`, SpriteKind.object)
     ]
-    for (let value7 of toolboxMenuOptions) {
-        value7.setPosition(-1000, -1000)
+    highlightedToolboxMenuOptions = [
+    sprites.create(assets.image`cursor1`, SpriteKind.object),
+    sprites.create(assets.image`cursor0`, SpriteKind.object),
+    sprites.create(assets.image`cursor2`, SpriteKind.object),
+    sprites.create(assets.image`cursor3`, SpriteKind.object),
+    sprites.create(assets.image`cursor4`, SpriteKind.object),
+    sprites.create(assets.image`cursor5`, SpriteKind.object)
+    ]
+    toolboxMenuNames = [
+    "desk",
+    "teddy bear",
+    "name 3",
+    "name 4",
+    "name 5",
+    "name 6"
+    ]
+    for (let index = 0; index <= toolboxMenuOptions.length - 1; index++) {
+        toolboxMenuOptions[index].setPosition(-1000, -1000)
+        sprites.setDataString(toolboxMenuOptions[index], "name", toolboxMenuNames[index])
+        sprites.setDataBoolean(toolboxMenuOptions[index], "highlighted", false)
+        sprites.setDataBoolean(toolboxMenuOptions[index], "selected", false)
     }
 }
 function showTooltip (text: string) {
@@ -430,17 +450,21 @@ function playerMovement (x: number, y: number) {
         } else if (menuVisible) {
             if (y < 0) {
                 if (currentSelectedTool > 0) {
+                    removeTooltips()
                     currentSelectedTool += -1
                     for (let index3 = 0; index3 <= toolboxMenuOptions.length - 1; index3++) {
                         toolboxMenuOptions[index3].setPosition(toolboxMenuOptions[index3].x, toolboxMenuOptions[index3].y + 24)
                     }
+                    showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
                 }
             } else if (y > 0) {
                 if (currentSelectedTool < toolboxMenuOptions.length - 1) {
+                    removeTooltips()
                     currentSelectedTool += 1
                     for (let index4 = 0; index4 <= toolboxMenuOptions.length - 1; index4++) {
                         toolboxMenuOptions[index4].setPosition(toolboxMenuOptions[index4].x, toolboxMenuOptions[index4].y - 24)
                     }
+                    showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
                 }
             }
         } else {
@@ -530,6 +554,12 @@ function highlightObject () {
         }
     }
 }
+function showToolboxTooltip (text: string) {
+    tooltipText = textsprite.create(text, 1, 15)
+    tooltipText.z = 2000
+    tooltipText.setKind(SpriteKind.tooltip)
+    tooltipText.setPosition(target.x + 0, target.y - 34)
+}
 let dir = 0
 let sprTempMood: Sprite = null
 let spr_toolSelectionBox: Sprite = null
@@ -538,6 +568,8 @@ let childrenInfo: string[] = []
 let childrenHighlighted: Image[] = []
 let debug_yPos: TextSprite = null
 let debug_xPos: TextSprite = null
+let toolboxMenuNames: string[] = []
+let highlightedToolboxMenuOptions: Sprite[] = []
 let toolboxMenu_sprites: number[] = []
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
