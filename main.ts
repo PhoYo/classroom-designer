@@ -347,13 +347,13 @@ function createChildren () {
     "Caleb"
     ]
     childrenInfo = [
-    "Sometimes I have trouble understanding my teacher as English is not my first language",
-    "I have trouble concentrating in class, which sometimes gets me into trouble",
-    "I get confused with numbers as they are hard to visualise",
-    "I find it hard to read in front of class, and when there is lots of noise I struggle to concentrate on reading",
-    "I tend to make a lot of mistakes that I scribble out, my work is a bit messy :(",
-    "I get scared and feel anxious in a classroom environment",
-    "I get very confused when I am reading and find it hard to relate words to sounds"
+    "Sometimes I have trouble:understanding my teacher:as English is not:my first language",
+    "I have trouble:concentrating in class:which sometimes gets:me into trouble",
+    "I get confused:with numbers as they:are hard to visualise",
+    "When there is lots:of noise I struggle to:concentrate on reading",
+    "I tend to make a lot:of mistakes that I:scribble out my work:is a bit messy",
+    "I get scared and feel:anxious in a:classroom environment",
+    "I get very confused:when I am reading and:find it hard to relate:words to sounds"
     ]
     for (let index2 = 0; index2 <= Children.length - 1; index2++) {
         tiles.placeOnRandomTile(Children[index2], assets.tile`myTile`)
@@ -388,7 +388,7 @@ function drawToolMenuOptions () {
     if (menuVisible) {
         MenuIncrementValue = 0
         for (let yCount = 0; yCount <= toolboxMenuOptions.length - 1; yCount++) {
-            toolboxMenuOptions[MenuIncrementValue].setPosition(target.x + 42 + 16, target.y - 40 + 24 * yCount)
+            toolboxMenuOptions[MenuIncrementValue].setPosition(target.x + 42 + 16, target.y - 40 + 32 * yCount)
             toolboxMenuOptions[MenuIncrementValue].z = 2001
             MenuIncrementValue += 1
         }
@@ -466,7 +466,7 @@ function playerMovement (x: number, y: number) {
                     removeTooltips()
                     currentSelectedTool += -1
                     for (let index3 = 0; index3 <= toolboxMenuOptions.length - 1; index3++) {
-                        toolboxMenuOptions[index3].setPosition(toolboxMenuOptions[index3].x, toolboxMenuOptions[index3].y + 24)
+                        toolboxMenuOptions[index3].setPosition(toolboxMenuOptions[index3].x, toolboxMenuOptions[index3].y + 32)
                     }
                     showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
                 }
@@ -475,7 +475,7 @@ function playerMovement (x: number, y: number) {
                     removeTooltips()
                     currentSelectedTool += 1
                     for (let index4 = 0; index4 <= toolboxMenuOptions.length - 1; index4++) {
-                        toolboxMenuOptions[index4].setPosition(toolboxMenuOptions[index4].x, toolboxMenuOptions[index4].y - 24)
+                        toolboxMenuOptions[index4].setPosition(toolboxMenuOptions[index4].x, toolboxMenuOptions[index4].y - 32)
                     }
                     showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
                 }
@@ -516,10 +516,13 @@ function createTitle () {
     )
 }
 function showTooltipChildInfo (text: string) {
-    tooltipText = textsprite.create(text, 1, 15)
-    tooltipText.z = 2000
-    tooltipText.setKind(SpriteKind.tooltip)
-    tooltipText.setPosition(target.x + 0, target.y + 30)
+    textStringArray = text.split(":")
+    for (let index = 0; index <= textStringArray.length - 1; index++) {
+        tooltipText = textsprite.create(textStringArray[index], 1, 15)
+        tooltipText.setPosition(target.x + 0, target.y + 26 + 8 * index)
+        tooltipText.z = 2000
+        tooltipText.setKind(SpriteKind.tooltip)
+    }
 }
 function showMenu () {
     if (menuVisible) {
@@ -582,6 +585,7 @@ function showToolboxTooltip (text: string) {
 }
 let dir = 0
 let sprTempMood: Sprite = null
+let textStringArray: string[] = []
 let spr_toolSelectionBox: Sprite = null
 let MenuIncrementValue = 0
 let childrenInfo: string[] = []
