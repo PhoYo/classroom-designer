@@ -49,7 +49,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         	
         } else {
             showMenu()
-            showTooltipChildInfo(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, 34, 0)
+            showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
         }
     } else {
     	
@@ -258,7 +258,7 @@ function createToolbox () {
     sprites.create(assets.image`cursor0`, SpriteKind.object),
     sprites.create(assets.image`cursor2`, SpriteKind.object),
     sprites.create(assets.image`cursor3`, SpriteKind.object),
-    sprites.create(assets.image`cursor4`, SpriteKind.object),
+    sprites.create(assets.image`cursor9`, SpriteKind.object),
     sprites.create(assets.image`cursor5`, SpriteKind.object)
     ]
     highlightedToolboxMenuOptions = [
@@ -284,12 +284,15 @@ function createToolbox () {
         sprites.setDataBoolean(toolboxMenuOptions[index], "selected", false)
     }
 }
-function showTooltip (text: string, xPosOffset: number, yPosOffset: number) {
+function showTooltip (text: string, xPosOffset: number, yPosOffset: number, lineSpacing: number) {
     if (selectedEntity.kind() == SpriteKind.emptySelection) {
-        tooltipText = textsprite.create(text, 1, 15)
-        tooltipText.z = 2000
-        tooltipText.setKind(SpriteKind.tooltip)
-        tooltipText.setPosition(target.x + 0, target.y - 14)
+        textStringArray = text.split(":")
+        for (let index = 0; index <= textStringArray.length - 1; index++) {
+            tooltipText = textsprite.create(textStringArray[index], 1, 15)
+            tooltipText.setPosition(target.x + xPosOffset, target.y + yPosOffset + lineSpacing * index)
+            tooltipText.z = 2000
+            tooltipText.setKind(SpriteKind.tooltip)
+        }
     }
 }
 // Debug
@@ -529,17 +532,6 @@ function createTitle () {
     true
     )
 }
-function showTooltipChildInfo (text: string, xPosOffset: number, yPosOffset: number, lineSpacing: number) {
-    if (selectedEntity.kind() == SpriteKind.emptySelection) {
-        textStringArray = text.split(":")
-        for (let index = 0; index <= textStringArray.length - 1; index++) {
-            tooltipText = textsprite.create(textStringArray[index], 1, 15)
-            tooltipText.setPosition(target.x + xPosOffset, target.y + yPosOffset + lineSpacing * index)
-            tooltipText.z = 2000
-            tooltipText.setKind(SpriteKind.tooltip)
-        }
-    }
-}
 function showMenu () {
     if (menuVisible) {
         menuVisible = 0
@@ -587,21 +579,21 @@ function highlightObject () {
         for (let value8 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
             if (value8.kind() == SpriteKind.chil_01) {
                 highlightChild(value8)
-                showTooltipChildInfo(sprites.readDataString(value8, "name"), 0, 14, 0)
-                showTooltipChildInfo(sprites.readDataString(value8, "info"), 1, 30, 8)
+                showTooltip(sprites.readDataString(value8, "name"), 0, -14, 0)
+                showTooltip(sprites.readDataString(value8, "info"), 1, 30, 8)
             }
         }
     }
 }
 let dir = 0
 let sprTempMood: Sprite = null
-let textStringArray: string[] = []
 let spr_toolSelectionBox: Sprite = null
 let MenuIncrementValue = 0
 let childrenInfo: string[] = []
 let childrenHighlighted: Image[] = []
 let debug_yPos: TextSprite = null
 let debug_xPos: TextSprite = null
+let textStringArray: string[] = []
 let toolboxMenuNames: string[] = []
 let highlightedToolboxMenuOptions: Sprite[] = []
 let toolboxMenu_sprites: number[] = []
