@@ -42,9 +42,6 @@ function deselect () {
         }
     }
 }
-function playMusic () {
-	
-}
 // buttons
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(showtitle)) {
@@ -205,6 +202,24 @@ function setMood (mySprite: Sprite) {
         sprites.setDataString(mySprite, "gender", "female")
         sprites.setDataString(mySprite, "name", childrenGirlsNames._pickRandom())
     }
+    mySprite = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Player)
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(-1, 0)
@@ -226,9 +241,6 @@ function createSpeechBubble (child: Sprite) {
         stillTalking = 0
     })
 }
-info.onCountdownEnd(function () {
-	
-})
 // Depth sorting
 function depthSorting () {
     target.z = target.bottom / 100
@@ -572,9 +584,6 @@ function returnMood (Sprite2: Sprite) {
     }
     return sprTempMood
 }
-/**
- * Start
- */
 function highlightObject () {
     if (!(showtitle)) {
         for (let value8 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
@@ -604,6 +613,7 @@ let debug_xPos: TextSprite = null
 let toolboxMenuNames: string[] = []
 let highlightedToolboxMenuOptions: Sprite[] = []
 let toolboxMenu_sprites: number[] = []
+let mySprite: Sprite = null
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
 let tempGenderVar = 0
@@ -703,7 +713,6 @@ createUI()
 if (Debug) {
     showDebug()
 }
-playMusic()
 // Children tick
 game.onUpdateInterval(randint(200, 500), function () {
     if (!(rosterShown)) {
