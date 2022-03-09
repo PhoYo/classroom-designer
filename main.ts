@@ -26,11 +26,13 @@ function createUI () {
     spr_menu.z = 2000
     spr_roster = sprites.create(assets.image`myImage4`, SpriteKind.Player)
     spr_roster.setPosition(-1000, -1000)
-    spr_roster.setPosition(0, 0)
+    spr_roster.setPosition(-1000, -1000)
     spr_speechBubble = sprites.create(assets.image`myImage`, SpriteKind.speechBubble)
     spr_speechBubble.z = 1000
+    spr_speechBubble.setPosition(-1000, -1000)
     spr_mood = sprites.create(assets.image`myImage2`, SpriteKind.speechBubble)
     spr_mood.z = 1000
+    spr_mood.setPosition(-1000, -1000)
 }
 // Selection
 function deselect () {
@@ -259,14 +261,6 @@ function createToolbox () {
     sprites.create(assets.image`cursor2`, SpriteKind.object),
     sprites.create(assets.image`cursor3`, SpriteKind.object),
     sprites.create(assets.image`cursor9`, SpriteKind.object),
-    sprites.create(assets.image`cursor5`, SpriteKind.object)
-    ]
-    highlightedToolboxMenuOptions = [
-    sprites.create(assets.image`cursor1`, SpriteKind.object),
-    sprites.create(assets.image`cursor0`, SpriteKind.object),
-    sprites.create(assets.image`cursor2`, SpriteKind.object),
-    sprites.create(assets.image`cursor3`, SpriteKind.object),
-    sprites.create(assets.image`cursor4`, SpriteKind.object),
     sprites.create(assets.image`cursor5`, SpriteKind.object)
     ]
     toolboxMenuNames = [
@@ -596,7 +590,6 @@ let debug_yPos: TextSprite = null
 let debug_xPos: TextSprite = null
 let textStringArray: string[] = []
 let toolboxMenuNames: string[] = []
-let highlightedToolboxMenuOptions: Sprite[] = []
 let toolboxMenu_sprites: number[] = []
 let mySprite: Sprite = null
 let childrenGirlsNames: string[] = []
