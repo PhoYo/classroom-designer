@@ -49,7 +49,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         	
         } else {
             showMenu()
-            showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
+            showTooltipChildInfo(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, 34, 0)
         }
     } else {
     	
@@ -274,7 +274,7 @@ function createToolbox () {
     "teddy bear",
     "globe",
     "Meditating Carpet",
-    "name 5",
+    "Abacus",
     "name 6"
     ]
     for (let index = 0; index <= toolboxMenuOptions.length - 1; index++) {
@@ -284,7 +284,7 @@ function createToolbox () {
         sprites.setDataBoolean(toolboxMenuOptions[index], "selected", false)
     }
 }
-function showTooltip (text: string) {
+function showTooltip (text: string, xPosOffset: number, yPosOffset: number) {
     if (selectedEntity.kind() == SpriteKind.emptySelection) {
         tooltipText = textsprite.create(text, 1, 15)
         tooltipText.z = 2000
@@ -484,7 +484,6 @@ function playerMovement (x: number, y: number) {
                     for (let index3 = 0; index3 <= toolboxMenuOptions.length - 1; index3++) {
                         toolboxMenuOptions[index3].setPosition(toolboxMenuOptions[index3].x, toolboxMenuOptions[index3].y + 32)
                     }
-                    showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
                 }
             } else if (y > 0) {
                 if (currentSelectedTool < toolboxMenuOptions.length - 1) {
@@ -493,7 +492,6 @@ function playerMovement (x: number, y: number) {
                     for (let index4 = 0; index4 <= toolboxMenuOptions.length - 1; index4++) {
                         toolboxMenuOptions[index4].setPosition(toolboxMenuOptions[index4].x, toolboxMenuOptions[index4].y - 32)
                     }
-                    showToolboxTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
                 }
             }
         } else {
@@ -531,12 +529,12 @@ function createTitle () {
     true
     )
 }
-function showTooltipChildInfo (text: string) {
+function showTooltipChildInfo (text: string, xPosOffset: number, yPosOffset: number, lineSpacing: number) {
     if (selectedEntity.kind() == SpriteKind.emptySelection) {
         textStringArray = text.split(":")
         for (let index = 0; index <= textStringArray.length - 1; index++) {
             tooltipText = textsprite.create(textStringArray[index], 1, 15)
-            tooltipText.setPosition(target.x + 0, target.y + 30 + 8 * index)
+            tooltipText.setPosition(target.x + xPosOffset, target.y + yPosOffset + lineSpacing * index)
             tooltipText.z = 2000
             tooltipText.setKind(SpriteKind.tooltip)
         }
@@ -589,17 +587,11 @@ function highlightObject () {
         for (let value8 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
             if (value8.kind() == SpriteKind.chil_01) {
                 highlightChild(value8)
-                showTooltip(sprites.readDataString(value8, "name"))
-                showTooltipChildInfo(sprites.readDataString(value8, "info"))
+                showTooltipChildInfo(sprites.readDataString(value8, "name"), 0, 14, 0)
+                showTooltipChildInfo(sprites.readDataString(value8, "info"), 1, 30, 8)
             }
         }
     }
-}
-function showToolboxTooltip (text: string) {
-    tooltipText = textsprite.create(text, 1, 15)
-    tooltipText.z = 2000
-    tooltipText.setKind(SpriteKind.tooltip)
-    tooltipText.setPosition(target.x + 0, target.y - 34)
 }
 let dir = 0
 let sprTempMood: Sprite = null
