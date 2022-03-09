@@ -498,25 +498,26 @@ function playerMovement (x: number, y: number) {
                 }
             }
         } else {
-            if (currentYpos <= 10 || currentYpos >= 4 || (currentXpos >= 9 || currentXpos <= 21)) {
-                currentYpos += y
+            if (currentXpos + x >= 9 && currentXpos + x <= 21 && (currentYpos + y <= 10 && currentYpos + y >= 4)) {
+                console.log(x)
                 currentXpos += x
-                grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
-                removeTooltips()
-                deselect()
-                highlightObject()
-                tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
-                positionUI()
-                if (selectedEntity.kind() != SpriteKind.emptySelection) {
-                    grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
-                    selectedEntity.setPosition(selectedEntity.x, selectedEntity.y - 4)
-                }
-                if (Debug) {
-                    debug_xPos.setPosition(target.x + 0, target.y + 10)
-                    debug_yPos.setPosition(target.x + 10, target.y + 10)
-                    debug_xPos.setText(convertToText(currentXpos))
-                    debug_yPos.setText(convertToText(currentYpos))
-                }
+                currentYpos += y
+            }
+            grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
+            removeTooltips()
+            deselect()
+            highlightObject()
+            tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
+            positionUI()
+            if (selectedEntity.kind() != SpriteKind.emptySelection) {
+                grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
+                selectedEntity.setPosition(selectedEntity.x, selectedEntity.y - 4)
+            }
+            if (Debug) {
+                debug_xPos.setPosition(target.x + 0, target.y + 10)
+                debug_yPos.setPosition(target.x + 10, target.y + 10)
+                debug_xPos.setText(convertToText(currentXpos))
+                debug_yPos.setText(convertToText(currentYpos))
             }
         }
     }
@@ -635,7 +636,7 @@ let checkTilesArounditem: number[] = []
 scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
 showtitle = 1
-Debug = 0
+Debug = 1
 menuVisible = 0
 currentXpos = 15
 currentYpos = 6
