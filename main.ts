@@ -153,7 +153,7 @@ function ShowChildrenInRoster () {
     }
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
+    if (!(showtitle) && !(OverviewScreen)) {
         if (menuVisible || rosterShown) {
             if (rosterShown) {
                 game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
@@ -192,7 +192,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         showtitle = 0
         target.setFlag(SpriteFlag.Invisible, false)
         removeTooltips()
-        info.startCountdown(180)
+        info.startCountdown(20)
+    } else if (OverviewScreen == 1) {
+        console.log("blah")
+        game.reset()
     } else {
         grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
         tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
@@ -256,9 +259,12 @@ function createSpeechBubble (child: Sprite) {
     })
 }
 info.onCountdownEnd(function () {
+    removeTooltips()
     OverviewScreen = 1
     spr_OverviewScreen = sprites.create(assets.image`myImage4`, SpriteKind.menu)
     spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
+    spr_OverviewScreen.z = 3000
+    showTooltip("Press A to continue", 0, 50, 1)
 })
 // Depth sorting
 function depthSorting () {
@@ -301,7 +307,7 @@ function showTooltip (text: string, xPosOffset: number, yPosOffset: number, line
         for (let index = 0; index <= textStringArray.length - 1; index++) {
             tooltipText = textsprite.create(textStringArray[index], 1, 15)
             tooltipText.setPosition(target.x + xPosOffset, target.y + yPosOffset + lineSpacing * index)
-            tooltipText.z = 2000
+            tooltipText.z = 3001
             tooltipText.setKind(SpriteKind.tooltip)
         }
     }
@@ -486,7 +492,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function playerMovement (x: number, y: number) {
-    if (!(showtitle)) {
+    if (!(showtitle) && !(OverviewScreen)) {
         if (rosterShown && (RosterSelectionVar < 4 || RosterSelectionVar > 0)) {
             sprSelectionIcon.y += y * 20
             RosterSelectionVar += y
@@ -498,6 +504,7 @@ function playerMovement (x: number, y: number) {
                     for (let index3 = 0; index3 <= toolboxMenuOptions.length - 1; index3++) {
                         toolboxMenuOptions[index3].setPosition(toolboxMenuOptions[index3].x, toolboxMenuOptions[index3].y + 32)
                     }
+                    showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
                 }
             } else if (y > 0) {
                 if (currentSelectedTool < toolboxMenuOptions.length - 1) {
@@ -506,6 +513,7 @@ function playerMovement (x: number, y: number) {
                     for (let index4 = 0; index4 <= toolboxMenuOptions.length - 1; index4++) {
                         toolboxMenuOptions[index4].setPosition(toolboxMenuOptions[index4].x, toolboxMenuOptions[index4].y - 32)
                     }
+                    showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
                 }
             }
         } else {
@@ -725,7 +733,7 @@ game.onUpdateInterval(randint(200, 500), function () {
                     grid.move(randomChild, -1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    if (!(menuVisible)) {
+                    if (!(menuVisible) && !(OverviewScreen)) {
                         highlightObject()
                     }
                 } else if (randomChild.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
@@ -733,7 +741,7 @@ game.onUpdateInterval(randint(200, 500), function () {
                     grid.move(randomChild, 1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    if (!(menuVisible)) {
+                    if (!(menuVisible) && !(OverviewScreen)) {
                         highlightObject()
                     }
                 } else if (randomChild.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
@@ -741,7 +749,7 @@ game.onUpdateInterval(randint(200, 500), function () {
                     grid.move(randomChild, 0, -1)
                     sprites.changeDataNumberBy(randomChild, "yPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    if (!(menuVisible)) {
+                    if (!(menuVisible) && !(OverviewScreen)) {
                         highlightObject()
                     }
                 } else if (randomChild.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
@@ -749,7 +757,7 @@ game.onUpdateInterval(randint(200, 500), function () {
                     grid.move(randomChild, 0, 1)
                     sprites.changeDataNumberBy(randomChild, "yPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                    if (!(menuVisible)) {
+                    if (!(menuVisible) && !(OverviewScreen)) {
                         highlightObject()
                     }
                 }
