@@ -182,16 +182,21 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             false
             )
         }
+    } else if (showInfo) {
+        music.baDing.play()
+        showtitle = 0
+        target.setFlag(SpriteFlag.Invisible, false)
+        removeTooltips()
     } else {
         grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
         tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
         animation.stopAnimation(animation.AnimationTypes.All, sprTitle)
         sprTitle.setPosition(-1000, -1000)
-        target.setFlag(SpriteFlag.Invisible, false)
-        showtitle = 0
         positionUI()
         music.baDing.play()
-        info.startCountdown(180)
+        showInfo = 1
+        showTooltip("Design a classroom:based on the children's:personal needs ", 0, -20, 8)
+        showTooltip("Press A to begin", 0, 20, 8)
     }
 })
 function setMood (mySprite: Sprite) {
@@ -622,6 +627,7 @@ let stillTalking = 0
 let currentYpos = 0
 let currentXpos = 0
 let menuVisible = 0
+let showInfo = 0
 let Debug = 0
 let showtitle = 0
 let menuChoiceNumber = 0
@@ -630,6 +636,7 @@ scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
 showtitle = 1
 Debug = 1
+showInfo = 0
 menuVisible = 0
 currentXpos = 15
 currentYpos = 6
