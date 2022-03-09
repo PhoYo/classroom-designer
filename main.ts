@@ -50,9 +50,13 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         if (rosterShown) {
         	
         } else {
-            showMenu()
-            showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
-            removeTooltips()
+            if (selectedEntity.kind() == SpriteKind.emptySelection) {
+                showMenu()
+                showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
+                removeTooltips()
+            } else {
+                music.buzzer.play()
+            }
         }
     } else {
     	
@@ -251,6 +255,11 @@ function createSpeechBubble (child: Sprite) {
         stillTalking = 0
     })
 }
+info.onCountdownEnd(function () {
+    OverviewScreen = 1
+    spr_OverviewScreen = sprites.create(assets.image`myImage4`, SpriteKind.menu)
+    spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
+})
 // Depth sorting
 function depthSorting () {
     target.z = target.bottom / 100
@@ -599,6 +608,7 @@ let debug_xPos: TextSprite = null
 let textStringArray: string[] = []
 let toolboxMenuNames: string[] = []
 let toolboxMenu_sprites: number[] = []
+let spr_OverviewScreen: Sprite = null
 let mySprite: Sprite = null
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
@@ -626,6 +636,7 @@ let RosterSelectionVar = 0
 let rosterShown = 0
 let objectList: Sprite[] = []
 let EntityList: Sprite[] = []
+let OverviewScreen = 0
 let stillTalking = 0
 let currentYpos = 0
 let currentXpos = 0
@@ -644,6 +655,7 @@ menuVisible = 0
 currentXpos = 15
 currentYpos = 6
 stillTalking = 0
+OverviewScreen = 0
 EntityList = []
 objectList = []
 rosterShown = 0
