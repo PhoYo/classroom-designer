@@ -52,6 +52,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         } else {
             showMenu()
             showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
+            removeTooltips()
         }
     } else {
     	
@@ -187,6 +188,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         showtitle = 0
         target.setFlag(SpriteFlag.Invisible, false)
         removeTooltips()
+        info.startCountdown(180)
     } else {
         grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
         tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
@@ -195,8 +197,9 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         positionUI()
         music.baDing.play()
         showInfo = 1
-        showTooltip("Design a classroom:based on the children's:personal needs ", 0, -20, 8)
-        showTooltip("Press A to begin", 0, 20, 8)
+        showTooltip("Design a classroom:based on the children's:personal needs ", 0, -30, 8)
+        showTooltip("You have 180 seconds", 0, 0, 8)
+        showTooltip("Press A to begin", 0, 30, 8)
     }
 })
 function setMood (mySprite: Sprite) {
@@ -635,7 +638,7 @@ let checkTilesArounditem: number[] = []
 scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
 showtitle = 1
-Debug = 1
+Debug = 0
 showInfo = 0
 menuVisible = 0
 currentXpos = 15
