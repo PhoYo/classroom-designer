@@ -153,7 +153,7 @@ function ShowChildrenInRoster () {
     }
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle) && !(OverviewScreen)) {
+    if (!(showtitle)) {
         if (menuVisible || rosterShown) {
             if (rosterShown) {
                 game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
@@ -172,20 +172,24 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 showMenu()
             }
         } else {
-            for (let value2 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-                if (value2.kind() == SpriteKind.chil_01) {
-                    if (selectedEntity.kind() == SpriteKind.emptySelection) {
-                        selectChild(value2)
+            if (OverviewScreen) {
+                game.reset()
+            } else {
+                for (let value2 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
+                    if (value2.kind() == SpriteKind.chil_01) {
+                        if (selectedEntity.kind() == SpriteKind.emptySelection) {
+                            selectChild(value2)
+                        }
                     }
                 }
+                moveSelectedEntity()
+                animation.runImageAnimation(
+                target,
+                assets.animation`myAnim`,
+                100,
+                false
+                )
             }
-            moveSelectedEntity()
-            animation.runImageAnimation(
-            target,
-            assets.animation`myAnim`,
-            100,
-            false
-            )
         }
     } else if (showInfo) {
         music.baDing.play()
@@ -261,6 +265,9 @@ function createSpeechBubble (child: Sprite) {
 info.onCountdownEnd(function () {
     removeTooltips()
     OverviewScreen = 1
+    showInfo = 0
+    menuVisible = 0
+    rosterShown = 0
     spr_OverviewScreen = sprites.create(assets.image`myImage4`, SpriteKind.menu)
     spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
     spr_OverviewScreen.z = 3000
