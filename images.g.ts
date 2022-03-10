@@ -1360,6 +1360,25 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 `;
+            case "image38":
+            case "myImage11":return img`
+. . . . . . . f f . . . . . . . 
+. . . . . . f 1 5 f . . . . . . 
+. . . . . . f 1 5 f . . . . . . 
+. . . . . f 1 1 5 5 f . . . . . 
+. . . . . f 1 5 5 5 f . . . . . 
+f f f f f 1 5 5 5 5 5 f f f f f 
+f 1 1 1 1 5 5 1 5 5 5 5 5 5 4 f 
+. f 1 5 5 5 1 5 5 5 5 5 5 4 f . 
+. . f 1 5 5 1 5 5 5 5 5 4 f . . 
+. . . f 1 5 5 5 5 5 5 4 f . . . 
+. . . f 1 5 5 5 5 5 5 4 f . . . 
+. . f 1 5 5 5 4 4 5 5 5 4 f . . 
+. . f 1 5 4 4 f f 4 4 5 4 f . . 
+. f 1 5 4 f f . . f f 4 5 4 f . 
+. f 1 4 f . . . . . . f 4 4 f . 
+. . f f . . . . . . . . f f . . 
+`;
         }
         return null;
     })

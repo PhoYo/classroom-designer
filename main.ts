@@ -272,6 +272,7 @@ info.onCountdownEnd(function () {
     spr_OverviewScreen = sprites.create(assets.image`myImage10`, SpriteKind.menu)
     spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
     spr_OverviewScreen.z = 3000
+    showTooltip("Layout", -40, -38, 1)
     showTooltip("Press A to continue", 0, 50, 1)
 })
 // Depth sorting
