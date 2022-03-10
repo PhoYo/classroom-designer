@@ -173,7 +173,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 showMenu()
             }
         } else {
-            if (OverviewScreen) {
+            if (OverviewScreenTimerComplete) {
                 game.reset()
             } else {
                 for (let value2 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
@@ -266,22 +266,21 @@ function createSpeechBubble (child: Sprite) {
 info.onCountdownEnd(function () {
     music.magicWand.play()
     removeTooltips()
-    OverviewScreen = 1
     showInfo = 0
     menuVisible = 0
     rosterShown = 0
+    OverviewScreen = 1
     spr_OverviewScreen = sprites.create(assets.image`myImage10`, SpriteKind.menu)
     spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
     spr_OverviewScreen.z = 3000
     showTooltip("Layout", -40, -34, 1)
-    showTooltip("Press A to continue", 0, 50, 1)
-    starLayoutArray = []
-    for (let index = 0; index <= 4; index++) {
-        starLayoutArray[index] = sprites.create(assets.image`myImage11`, SpriteKind.uiStar)
-        starLayoutArray[index].setPosition(target.x - 10 + 15 * index, target.y - 34)
-        starLayoutArray[index].z += 3001
-        starLayoutArray[index].changeScale(-0.2, ScaleAnchor.Middle)
-    }
+    showTooltip("Content", -40, -16, 1)
+    CreateStars(3, 10, 34)
+    CreateStars(1, 10, 16)
+    timer.after(3000, function () {
+        showTooltip("Press A to continue", 0, 50, 1)
+        OverviewScreenTimerComplete = 1
+    })
 })
 // Depth sorting
 function depthSorting () {
@@ -425,6 +424,19 @@ function createChildren () {
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(0, 1)
 })
+function CreateStars (amount: number, xPosOffset: number, yPosOffset: number) {
+    starLayoutArray = []
+    for (let index = 0; index <= 4; index++) {
+        if (index < amount) {
+            starLayoutArray[index] = sprites.create(assets.image`myImage11`, SpriteKind.uiStar)
+        } else {
+            starLayoutArray[index] = sprites.create(assets.image`myImage12`, SpriteKind.uiStar)
+        }
+        starLayoutArray[index].setPosition(target.x - xPosOffset + 15 * index, target.y - yPosOffset)
+        starLayoutArray[index].z += 3001
+        starLayoutArray[index].changeScale(-0.2, ScaleAnchor.Middle)
+    }
+}
 function highlightChild (child: Sprite) {
     child.setImage(childrenHighlighted[sprites.readDataNumber(child, "childType")])
     sprites.setDataBoolean(child, "highlighted", true)
@@ -626,6 +638,7 @@ let dir = 0
 let sprTempMood: Sprite = null
 let spr_toolSelectionBox: Sprite = null
 let MenuIncrementValue = 0
+let starLayoutArray: Sprite[] = []
 let childrenInfo: string[] = []
 let childrenHighlighted: Image[] = []
 let debug_yPos: TextSprite = null
@@ -633,7 +646,6 @@ let debug_xPos: TextSprite = null
 let textStringArray: string[] = []
 let toolboxMenuNames: string[] = []
 let toolboxMenu_sprites: number[] = []
-let starLayoutArray: Sprite[] = []
 let spr_OverviewScreen: Sprite = null
 let mySprite: Sprite = null
 let childrenGirlsNames: string[] = []
@@ -670,8 +682,10 @@ let menuVisible = 0
 let showInfo = 0
 let Debug = 0
 let showtitle = 0
+let OverviewScreenTimerComplete = 0
 let menuChoiceNumber = 0
 let checkTilesArounditem: number[] = []
+OverviewScreenTimerComplete = 0
 scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
 showtitle = 1

@@ -1379,6 +1379,25 @@ f 1 1 1 1 5 5 1 5 5 5 5 5 5 4 f
 . f 1 4 f . . . . . . f 4 4 f . 
 . . f f . . . . . . . . f f . . 
 `;
+            case "image39":
+            case "myImage12":return img`
+. . . . . . . b b . . . . . . . 
+. . . . . . b b b b . . . . . . 
+. . . . . . b b b b . . . . . . 
+. . . . . b b b b b b . . . . . 
+. . . . . b b b b b b . . . . . 
+b b b b b b b b b b b b b b b b 
+b b b b b b b b b b b b b b b b 
+. b b b b b b b b b b b b b b . 
+. . b b b b b b b b b b b b . . 
+. . . b b b b b b b b b b . . . 
+. . . b b b b b b b b b b . . . 
+. . b b b b b b b b b b b b . . 
+. . b b b b b b b b b b b b . . 
+. b b b b b b . . b b b b b b . 
+. b b b b . . . . . . b b b b . 
+. . b b . . . . . . . . b b . . 
+`;
         }
         return null;
     })

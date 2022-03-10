@@ -189,6 +189,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "myImage11"
     },
+    "image39": {
+        "data": "hwQQABAAAAAAALALAAAAAAAAsLsAALALAACwuwuwu7sAALC7u7u7uwAAsLu7u7sLALC7u7u7uwCwu7u7u7u7ALu7u7u7uwsAu7u7u7u7CwCwu7u7u7u7AACwu7u7u7sAAACwu7u7uwsAALC7u7u7uwAAsLsLsLu7AACwuwAAsAsAALALAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage12"
+    },
     "anim2": {
         "namespace": "myAnimations",
         "id": "anim2",
