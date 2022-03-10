@@ -207,11 +207,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         animation.stopAnimation(animation.AnimationTypes.All, sprTitle)
         sprTitle.setPosition(-1000, -1000)
         positionUI()
-        music.baDing.play()
-        showInfo = 1
-        showTooltip("Design a classroom:based on the children's:personal needs ", 0, -30, 8)
-        showTooltip("You have 180 seconds", 0, 0, 8)
-        showTooltip("Press A to begin", 0, 30, 8)
+        ShowInfo()
     }
 })
 function setMood (mySprite: Sprite) {
@@ -316,6 +312,15 @@ function createToolbox () {
         sprites.setDataBoolean(toolboxMenuOptions[index], "highlighted", false)
         sprites.setDataBoolean(toolboxMenuOptions[index], "selected", false)
     }
+}
+function ShowInfo () {
+    music.baDing.play()
+    showTooltip("Design a classroom:based on the children's:personal needs ", 0, -30, 8)
+    showTooltip("You have 180 seconds", 0, 0, 8)
+    timer.after(3000, function () {
+        showInfo = 1
+        showTooltip("Press A to begin", 0, 30, 8)
+    })
 }
 function showTooltip (text: string, xPosOffset: number, yPosOffset: number, lineSpacing: number) {
     if (selectedEntity.kind() == SpriteKind.emptySelection) {
