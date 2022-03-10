@@ -16,6 +16,7 @@ namespace SpriteKind {
     export const emptySelection = SpriteKind.create()
     export const tooltip = SpriteKind.create()
     export const object = SpriteKind.create()
+    export const uiStar = SpriteKind.create()
 }
 // movement
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -272,8 +273,15 @@ info.onCountdownEnd(function () {
     spr_OverviewScreen = sprites.create(assets.image`myImage10`, SpriteKind.menu)
     spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
     spr_OverviewScreen.z = 3000
-    showTooltip("Layout", -40, -38, 1)
+    showTooltip("Layout", -40, -34, 1)
     showTooltip("Press A to continue", 0, 50, 1)
+    starLayoutArray = []
+    for (let index = 0; index <= 4; index++) {
+        starLayoutArray[index] = sprites.create(assets.image`myImage11`, SpriteKind.uiStar)
+        starLayoutArray[index].setPosition(target.x - 10 + 15 * index, target.y - 34)
+        starLayoutArray[index].z += 3001
+        starLayoutArray[index].changeScale(-0.2, ScaleAnchor.Middle)
+    }
 })
 // Depth sorting
 function depthSorting () {
@@ -625,6 +633,7 @@ let debug_xPos: TextSprite = null
 let textStringArray: string[] = []
 let toolboxMenuNames: string[] = []
 let toolboxMenu_sprites: number[] = []
+let starLayoutArray: Sprite[] = []
 let spr_OverviewScreen: Sprite = null
 let mySprite: Sprite = null
 let childrenGirlsNames: string[] = []
