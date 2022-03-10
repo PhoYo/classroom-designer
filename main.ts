@@ -263,12 +263,13 @@ function createSpeechBubble (child: Sprite) {
     })
 }
 info.onCountdownEnd(function () {
+    music.magicWand.play()
     removeTooltips()
     OverviewScreen = 1
     showInfo = 0
     menuVisible = 0
     rosterShown = 0
-    spr_OverviewScreen = sprites.create(assets.image`myImage4`, SpriteKind.menu)
+    spr_OverviewScreen = sprites.create(assets.image`myImage10`, SpriteKind.menu)
     spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
     spr_OverviewScreen.z = 3000
     showTooltip("Press A to continue", 0, 50, 1)
