@@ -346,7 +346,8 @@ function createToolbox () {
     sprites.create(assets.image`cursor2`, SpriteKind.object),
     sprites.create(assets.image`cursor3`, SpriteKind.object),
     sprites.create(assets.image`cursor9`, SpriteKind.object),
-    sprites.create(assets.image`cursor5`, SpriteKind.object)
+    sprites.create(assets.image`cursor5`, SpriteKind.object),
+    sprites.create(assets.image`cursor10`, SpriteKind.object)
     ]
     toolboxMenuNames = [
     "desk",
@@ -354,7 +355,8 @@ function createToolbox () {
     "globe",
     "Meditating Carpet",
     "Abacus",
-    "Classroom computer"
+    "Classroom computer",
+    "Bookshelf"
     ]
     for (let index = 0; index <= toolboxMenuOptions.length - 1; index++) {
         toolboxMenuOptions[index].setPosition(-1000, -1000)
