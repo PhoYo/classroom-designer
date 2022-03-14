@@ -18,6 +18,45 @@ namespace SpriteKind {
     export const object = SpriteKind.create()
     export const uiStar = SpriteKind.create()
 }
+function checkScores () {
+    tableAmount = 0
+    matchAmount = 0
+    for (let value of objectList) {
+        if (sprites.readDataString(value, "name") == "desk") {
+            tableAmount += 1
+        } else if (sprites.readDataString(value, "name") == "Abacus") {
+            for (let value of Children) {
+                if (sprites.readDataString(value, "info") == "I get confused:with numbers as they:are hard to visualise") {
+                    matchAmount += 1
+                }
+            }
+        } else if (sprites.readDataString(value, "name") == "teddy bear") {
+            for (let value of Children) {
+                if (sprites.readDataString(value, "info") == "I get scared and feel:anxious in a:classroom environment") {
+                    matchAmount += 1
+                }
+            }
+        } else if (sprites.readDataString(value, "name") == "Meditating Carpet") {
+            for (let value of Children) {
+                if (sprites.readDataString(value, "info") == "Teacher says I am:hyperactive and fidgety") {
+                    matchAmount += 1
+                }
+            }
+        } else if (sprites.readDataString(value, "name") == "Classroom computer") {
+            for (let value of Children) {
+                if (sprites.readDataString(value, "info") == "I wish we could go:on the internet:in class") {
+                    matchAmount += 1
+                }
+            }
+        } else {
+        	
+        }
+    }
+    if (tableAmount > 5) {
+        amountOffset = tableAmount - 5
+        tableAmount = tableAmount - amountOffset
+    }
+}
 // movement
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(0, -1)
@@ -47,7 +86,7 @@ function deselect () {
 }
 // buttons
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
+    if (!(showtitle) && !(OverviewScreen)) {
         if (rosterShown) {
         	
         } else {
@@ -200,7 +239,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         info.startCountdown(20)
     } else if (OverviewScreen == 1) {
         console.log("blah")
-        game.reset()
     } else {
         grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
         tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
@@ -239,6 +277,18 @@ function setMood (mySprite: Sprite) {
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Player)
 }
+function showScoreOverview () {
+    showTooltip("Layout", -40, -34, 1)
+    showTooltip("Content", -40, -16, 1)
+    showTooltip("children", -40, 0, 1)
+    CreateStars(3, 10, 34)
+    CreateStars(tableAmount, 10, 16)
+    CreateStars(matchAmount, 10, 0)
+    timer.after(3000, function () {
+        showTooltip("Press A to continue", 0, 50, 1)
+        OverviewScreenTimerComplete = 1
+    })
+}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(-1, 0)
 })
@@ -262,21 +312,21 @@ function createSpeechBubble (child: Sprite) {
 info.onCountdownEnd(function () {
     music.magicWand.play()
     removeTooltips()
+    checkScores()
     showInfo = 0
     menuVisible = 0
     rosterShown = 0
     OverviewScreen = 1
     spr_OverviewScreen = sprites.create(assets.image`myImage10`, SpriteKind.menu)
-    spr_OverviewScreen.setPosition(target.x - 0, target.y - 0)
+    spr_OverviewScreen.setPosition(target.x - 0, target.y + -100)
     spr_OverviewScreen.z = 3000
-    showTooltip("Layout", -40, -34, 1)
-    showTooltip("Content", -40, -16, 1)
-    CreateStars(3, 10, 34)
-    CreateStars(1, 10, 16)
-    timer.after(3000, function () {
-        showTooltip("Press A to continue", 0, 50, 1)
-        OverviewScreenTimerComplete = 1
-    })
+    animation.runMovementAnimation(
+    spr_OverviewScreen,
+    animation.animationPresets(animation.easeDown),
+    500,
+    false
+    )
+    showScoreOverview()
 })
 // Depth sorting
 function depthSorting () {
@@ -304,7 +354,7 @@ function createToolbox () {
     "globe",
     "Meditating Carpet",
     "Abacus",
-    "name 6"
+    "Classroom computer"
     ]
     for (let index = 0; index <= toolboxMenuOptions.length - 1; index++) {
         toolboxMenuOptions[index].setPosition(-1000, -1000)
@@ -410,7 +460,9 @@ function createChildren () {
     "When there is lots:of noise I struggle to:concentrate on reading",
     "I tend to make a lot:of mistakes:",
     "I get scared and feel:anxious in a:classroom environment",
-    "I get very confused:when I am reading and:find it hard to relate:words to sounds"
+    "I get very confused:when I am reading and:find it hard to relate:words to sounds",
+    "Teacher says I am:hyperactive and fidgety",
+    "I wish we could go:on the internet:in class"
     ]
     for (let index2 = 0; index2 <= Children.length - 1; index2++) {
         tiles.placeOnRandomTile(Children[index2], assets.tile`myTile`)
@@ -501,7 +553,7 @@ function removeTooltips () {
     sprites.destroyAllSpritesOfKind(SpriteKind.tooltip)
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
+    if (!(showtitle) && !(OverviewScreen)) {
         if (!(rosterShown)) {
             rosterShown = 1
             spr_roster.z = 3000
@@ -658,7 +710,6 @@ let childrenBoysNames: string[] = []
 let tempGenderVar = 0
 let sprTitle: Sprite = null
 let newTempTool: Sprite = null
-let Children: Sprite[] = []
 let sprSelectionIcon: Sprite = null
 let classRosterTitle: TextSprite = null
 let childrenMoodList: Sprite[] = []
@@ -672,6 +723,10 @@ let spr_mood: Sprite = null
 let spr_speechBubble: Sprite = null
 let spr_roster: Sprite = null
 let spr_menu: Sprite = null
+let amountOffset = 0
+let Children: Sprite[] = []
+let matchAmount = 0
+let tableAmount = 0
 let target: Sprite = null
 let selectedEntity: Sprite = null
 let tooltipText: TextSprite = null
