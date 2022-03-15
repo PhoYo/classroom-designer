@@ -258,10 +258,10 @@ function setMood (mySprite: Sprite) {
     sprites.setDataString(mySprite, "mood", "sad")
     if (tempGenderVar) {
         sprites.setDataString(mySprite, "gender", "male")
-        sprites.setDataString(mySprite, "name", childrenBoysNames._pickRandom())
+        sprites.setDataString(mySprite, "name", childrenBoysNames.removeAt(randint(0, childrenBoysNames.length - 1)))
     } else {
         sprites.setDataString(mySprite, "gender", "female")
-        sprites.setDataString(mySprite, "name", childrenGirlsNames._pickRandom())
+        sprites.setDataString(mySprite, "name", childrenGirlsNames.removeAt(randint(0, childrenGirlsNames.length - 1)))
     }
     mySprite = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -488,7 +488,7 @@ function createChildren () {
     for (let index2 = 0; index2 <= Children.length - 1; index2++) {
         tiles.placeOnRandomTile(Children[index2], assets.tile`myTile`)
         tiles.setTileAt(Children[index2].tilemapLocation(), assets.tile`myTile22`)
-        sprites.setDataString(Children[index2], "info", childrenInfo._pickRandom())
+        sprites.setDataString(Children[index2], "info", childrenInfo.removeAt(randint(0, childrenInfo.length - 1)))
         sprites.setDataBoolean(Children[index2], "talking", false)
         sprites.setDataNumber(Children[index2], "xPos", grid.spriteCol(Children[index2]))
         sprites.setDataNumber(Children[index2], "yPos", grid.spriteRow(Children[index2]))
