@@ -21,6 +21,8 @@ namespace SpriteKind {
 function checkScores () {
     tableAmount = 0
     matchAmount = 0
+    layoutAmount = 0
+    averageAmount = 0
     for (let value of objectList) {
         if (sprites.readDataString(value, "name") == "desk") {
             tableAmount += 1
@@ -48,14 +50,17 @@ function checkScores () {
                     matchAmount += 1
                 }
             }
-        } else {
-        	
         }
     }
     if (tableAmount > 5) {
         amountOffset = tableAmount - 5
         tableAmount = tableAmount - amountOffset
     }
+    averageAmount += tableAmount
+    averageAmount += layoutAmount
+    averageAmount += matchAmount
+    averageAmount = averageAmount / 3
+    console.log(averageAmount)
 }
 // movement
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -281,7 +286,7 @@ function showScoreOverview () {
     showTooltip("Layout", -42, -34, 1)
     showTooltip("Content", -45, -16, 1)
     showTooltip("Children", -48, 0, 1)
-    showTooltip("Overall", -48, 30, 1)
+    showTooltip("Grade", -48, 30, 1)
     CreateStars(3, 10, 34)
     CreateStars(tableAmount, 10, 16)
     CreateStars(matchAmount, 10, 0)
@@ -289,6 +294,18 @@ function showScoreOverview () {
         showTooltip("Press A to continue", 0, 50, 1)
         OverviewScreenTimerComplete = 1
     })
+    if (averageAmount < 2) {
+        spr_grade = textsprite.create("C")
+    } else if (averageAmount > 2 && averageAmount < 3) {
+        spr_grade = textsprite.create("B")
+    } else if (averageAmount > 3 && averageAmount < 5) {
+        spr_grade = textsprite.create("A")
+    } else if (averageAmount == 5) {
+        spr_grade = textsprite.create("A+")
+    }
+    spr_grade.setMaxFontHeight(24)
+    spr_grade.z = 3001
+    spr_grade.setPosition(target.x + 14, target.y + 30)
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(-1, 0)
@@ -708,6 +725,7 @@ let textStringArray: string[] = []
 let toolboxMenuNames: string[] = []
 let toolboxMenu_sprites: number[] = []
 let spr_OverviewScreen: Sprite = null
+let spr_grade: TextSprite = null
 let mySprite: Sprite = null
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
@@ -729,6 +747,8 @@ let spr_roster: Sprite = null
 let spr_menu: Sprite = null
 let amountOffset = 0
 let Children: Sprite[] = []
+let averageAmount = 0
+let layoutAmount = 0
 let matchAmount = 0
 let tableAmount = 0
 let target: Sprite = null
