@@ -278,9 +278,10 @@ function setMood (mySprite: Sprite) {
         `, SpriteKind.Player)
 }
 function showScoreOverview () {
-    showTooltip("Layout", -40, -34, 1)
-    showTooltip("Content", -40, -16, 1)
-    showTooltip("children", -40, 0, 1)
+    showTooltip("Layout", -42, -34, 1)
+    showTooltip("Content", -45, -16, 1)
+    showTooltip("Children", -48, 0, 1)
+    showTooltip("Overall", -48, 30, 1)
     CreateStars(3, 10, 34)
     CreateStars(tableAmount, 10, 16)
     CreateStars(matchAmount, 10, 0)
@@ -346,7 +347,7 @@ function createToolbox () {
     sprites.create(assets.image`cursor2`, SpriteKind.object),
     sprites.create(assets.image`cursor3`, SpriteKind.object),
     sprites.create(assets.image`cursor9`, SpriteKind.object),
-    sprites.create(assets.image`cursor5`, SpriteKind.object),
+    sprites.create(assets.image`cursor11`, SpriteKind.object),
     sprites.create(assets.image`cursor10`, SpriteKind.object)
     ]
     toolboxMenuNames = [
@@ -464,7 +465,8 @@ function createChildren () {
     "I get scared and feel:anxious in a:classroom environment",
     "I get very confused:when I am reading and:find it hard to relate:words to sounds",
     "Teacher says I am:hyperactive and fidgety",
-    "I wish we could go:on the internet:in class"
+    "I wish we could go:on the internet:in class",
+    "Teacher says I:confuse the order:of letters in words."
     ]
     for (let index2 = 0; index2 <= Children.length - 1; index2++) {
         tiles.placeOnRandomTile(Children[index2], assets.tile`myTile`)
