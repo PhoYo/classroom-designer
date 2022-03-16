@@ -385,7 +385,7 @@ function createToolbox () {
 }
 function ShowInfo () {
     music.baDing.play()
-    showTooltip("Design a classroom:based on the children's:personal needs ", 0, -30, 8)
+    showTooltip("Listen to your students':needs and design a:classroom for them", 0, -30, 8)
     showTooltip("You have 180 seconds", 0, 0, 8)
     timer.after(3000, function () {
         showInfo = 1
