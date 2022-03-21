@@ -57,9 +57,8 @@ function checkScores () {
         tableAmount = tableAmount - amountOffset
     }
     averageAmount += tableAmount
-    averageAmount += layoutAmount
     averageAmount += matchAmount
-    averageAmount = averageAmount / 3
+    averageAmount = averageAmount / 2
     console.log(averageAmount)
 }
 // movement
@@ -240,7 +239,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         showtitle = 0
         target.setFlag(SpriteFlag.Invisible, false)
         removeTooltips()
-        info.startCountdown(20)
+        info.startCountdown(180)
     } else if (OverviewScreen == 1) {
         console.log("blah")
     } else {
@@ -282,11 +281,10 @@ function setMood (mySprite: Sprite) {
         `, SpriteKind.Player)
 }
 function showScoreOverview () {
-    showTooltip("Layout", -42, -34, 1)
+    showTooltip("Overall score", 0, -40, 1)
     showTooltip("Content", -45, -16, 1)
     showTooltip("Children", -48, 0, 1)
     showTooltip("Grade", -48, 30, 1)
-    CreateStars(3, 10, 34)
     CreateStars(tableAmount, 10, 16)
     CreateStars(matchAmount, 10, 0)
     timer.after(3000, function () {
@@ -330,29 +328,9 @@ info.onCountdownEnd(function () {
     music.magicWand.play()
     removeTooltips()
     checkScores()
-    showMenu()
-    showInfo = 0
-    menuVisible = 0
-    rosterShown = 0
-    OverviewScreen = 1
-    selectedEntity = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.emptySelection)
+    if (menuVisible) {
+        showMenu()
+    }
     spr_OverviewScreen = sprites.create(assets.image`myImage10`, SpriteKind.menu)
     spr_OverviewScreen.setPosition(target.x - 0, target.y + -100)
     spr_OverviewScreen.z = 3000
@@ -363,6 +341,10 @@ info.onCountdownEnd(function () {
     false
     )
     showScoreOverview()
+    showInfo = 0
+    menuVisible = 0
+    rosterShown = 0
+    OverviewScreen = 1
 })
 // Depth sorting
 function depthSorting () {
