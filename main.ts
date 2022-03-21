@@ -98,7 +98,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             if (selectedEntity.kind() == SpriteKind.emptySelection) {
                 showMenu()
                 showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
-                removeTooltips()
             } else {
                 music.buzzer.play()
             }
@@ -493,16 +492,11 @@ function createChildren () {
     "Caleb"
     ]
     childrenInfo = [
-    "Sometimes I have trouble:understanding my teacher:as English is not:my first language",
     "I have trouble:concentrating in class:which sometimes gets:me into trouble",
     "I get confused:with numbers as they:are hard to visualise",
     "When there is lots:of noise I struggle to:concentrate on reading",
-    "I tend to make a lot:of mistakes:",
     "I get scared and feel:anxious in a:classroom environment",
-    "I get very confused:when I am reading and:find it hard to relate:words to sounds",
-    "Teacher says I am:hyperactive and fidgety",
-    "I wish we could go:on the internet:in class",
-    "Teacher says I:confuse the order:of letters in words."
+    "I wish we could go:on the internet:in class"
     ]
     for (let index22 = 0; index22 <= Children.length - 1; index22++) {
         tiles.placeOnRandomTile(Children[index22], assets.tile`myTile`)
