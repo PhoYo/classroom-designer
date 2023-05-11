@@ -2043,5 +2043,12 @@ d 1 f 3 3 3 3 3 3 f 1 1
         return null;
     })
 
+    helpers._registerFactory("song", function(name: string) {
+        switch(helpers.stringTrim(name)) {
+
+        }
+        return null;
+    })
+
 }
 // Auto-generated code. Do not edit.

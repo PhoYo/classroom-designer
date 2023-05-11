@@ -569,29 +569,7 @@ function removeTooltips () {
     sprites.destroyAllSpritesOfKind(SpriteKind.tooltip)
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle) && !(OverviewScreen)) {
-        if (!(rosterShown)) {
-            rosterShown = 1
-            spr_roster.z = 3000
-            spr_roster.setPosition(target.x, target.y)
-            ShowChildrenInRoster()
-        } else {
-            rosterShown = 0
-            spr_roster.setPosition(-1000, -1000)
-            for (let value42 of Children) {
-                tiles.placeOnRandomTile(value42, assets.tile`myTile`)
-                value42.setPosition(value42.x, value42.y + 8)
-            }
-            for (let value52 of childrenMoodList) {
-                value52.setPosition(-1000, -1000)
-            }
-            for (let value62 of sprRosterNames) {
-                value62.setPosition(-1000, -1000)
-            }
-            classRosterTitle.setPosition(-1000, -1000)
-            sprSelectionIcon.setPosition(-1000, -1000)
-        }
-    }
+	
 })
 function playerMovement (x: number, y: number) {
     if (!(showtitle) && !(OverviewScreen)) {
