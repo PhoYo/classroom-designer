@@ -14,10 +14,54 @@ namespace SpriteKind {
     export const selector = SpriteKind.create()
     export const entity = SpriteKind.create()
     export const emptySelection = SpriteKind.create()
+    export const tooltip = SpriteKind.create()
+    export const object = SpriteKind.create()
+    export const uiStar = SpriteKind.create()
 }
-/**
- * movement
- */
+function checkScores () {
+    tableAmount = 0
+    matchAmount = 0
+    layoutAmount = 0
+    averageAmount = 0
+    for (let value of objectList) {
+        if (sprites.readDataString(value, "name") == "desk") {
+            tableAmount += 1
+        } else if (sprites.readDataString(value, "name") == "Abacus") {
+            for (let value2 of Children) {
+                if (sprites.readDataString(value2, "info") == "I get confused:with numbers as they:are hard to visualise") {
+                    matchAmount += 1
+                }
+            }
+        } else if (sprites.readDataString(value, "name") == "teddy bear") {
+            for (let value3 of Children) {
+                if (sprites.readDataString(value3, "info") == "I get scared and feel:anxious in a:classroom environment") {
+                    matchAmount += 1
+                }
+            }
+        } else if (sprites.readDataString(value, "name") == "Meditating Carpet") {
+            for (let value4 of Children) {
+                if (sprites.readDataString(value4, "info") == "Teacher says I am:hyperactive and fidgety") {
+                    matchAmount += 1
+                }
+            }
+        } else if (sprites.readDataString(value, "name") == "Classroom computer") {
+            for (let value5 of Children) {
+                if (sprites.readDataString(value5, "info") == "I wish we could go:on the internet:in class") {
+                    matchAmount += 1
+                }
+            }
+        }
+    }
+    if (tableAmount > 5) {
+        amountOffset = tableAmount - 5
+        tableAmount = tableAmount - amountOffset
+    }
+    averageAmount += tableAmount
+    averageAmount += matchAmount
+    averageAmount = averageAmount / 2
+    console.log(averageAmount)
+}
+// movement
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(0, -1)
 })
@@ -26,33 +70,36 @@ function createUI () {
     spr_menu.z = 2000
     spr_roster = sprites.create(assets.image`myImage4`, SpriteKind.Player)
     spr_roster.setPosition(-1000, -1000)
-    spr_roster.setPosition(0, 0)
+    spr_roster.setPosition(-1000, -1000)
     spr_speechBubble = sprites.create(assets.image`myImage`, SpriteKind.speechBubble)
     spr_speechBubble.z = 1000
+    spr_speechBubble.setPosition(-1000, -1000)
     spr_mood = sprites.create(assets.image`myImage2`, SpriteKind.speechBubble)
     spr_mood.z = 1000
+    spr_mood.setPosition(-1000, -1000)
 }
-/**
- * Selection
- */
+// Selection
 function deselect () {
-    for (let value of grid.allSprites()) {
-        if (value.kind() == SpriteKind.chil_01) {
-            sprites.setDataBoolean(value, "highlighted", false)
-            value.setImage(childrenNormal[sprites.readDataNumber(value, "childType")])
+    for (let value6 of grid.allSprites()) {
+        if (value6.kind() == SpriteKind.chil_01) {
+            sprites.setDataBoolean(value6, "highlighted", false)
+            value6.setImage(childrenNormal[sprites.readDataNumber(value6, "childType")])
             target.setFlag(SpriteFlag.Invisible, false)
         }
     }
 }
-/**
- * buttons
- */
+// buttons
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
+    if (!(showtitle) && !(OverviewScreen)) {
         if (rosterShown) {
         	
         } else {
-            showMenu()
+            if (selectedEntity.kind() == SpriteKind.emptySelection) {
+                showMenu()
+                showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
+            } else {
+                music.buzzer.play()
+            }
         }
     } else {
     	
@@ -63,6 +110,7 @@ function selectChild (sprite: Sprite) {
     sprites.setDataBoolean(sprite, "highlighted", false)
     sprites.setDataBoolean(sprite, "selected", true)
     sprite.setPosition(sprite.x, sprite.y - 4)
+    sprite.z = 2000
     animation.runImageAnimation(
     sprite,
     childrenSelected[sprites.readDataNumber(sprite, "childType")],
@@ -77,7 +125,12 @@ function moveSelectedEntity () {
         sprites.setDataBoolean(selectedEntity, "selected", false)
         sprites.setDataBoolean(selectedEntity, "highlighted", true)
         animation.stopAnimation(animation.AnimationTypes.All, selectedEntity)
-        selectedEntity.setPosition(selectedEntity.x, selectedEntity.y + 4)
+        grid.snap(selectedEntity)
+        music.knock.play()
+        scene.cameraShake(2, 100)
+        if (!(selectedEntity.kind() == SpriteKind.emptySelection)) {
+            tiles.setTileAt(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile22`)
+        }
         selectedEntity = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -95,17 +148,15 @@ function moveSelectedEntity () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Player)
+            `, SpriteKind.emptySelection)
+        depthSorting()
     } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile22`)) {
         tiles.setTileAt(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`)
-        console.log("tell me")
-    } else {
-    	
+    } else if (!(tiles.tileAtLocationEquals(tiles.getTileLocation(currentXpos, currentYpos), assets.tile`myTile`))) {
+        music.buzzer.play()
     }
 }
-/**
- * Roster
- */
+// Roster
 function ShowChildrenInRoster () {
     ChildrenRosterList = []
     sprRosterNames = [
@@ -149,29 +200,55 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         if (menuVisible || rosterShown) {
             if (rosterShown) {
                 game.showLongText(sprites.readDataString(Children[RosterSelectionVar], "info"), DialogLayout.Bottom)
+            } else if (menuVisible) {
+                newTempTool = sprites.create(toolboxMenuOptions[currentSelectedTool].image, SpriteKind.entity)
+                selectedEntity = newTempTool
+                sprites.setDataString(newTempTool, "name", sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"))
+                objectList.push(newTempTool)
+                if (sprites.readDataString(newTempTool, "name") == "Meditating Carpet") {
+                    newTempTool.z = 1
+                }
+                if (selectedEntity.kind() != SpriteKind.emptySelection) {
+                    grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
+                    selectedEntity.setPosition(selectedEntity.x, selectedEntity.y - 4)
+                }
+                showMenu()
             }
         } else {
-            for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-                if (value.kind() == SpriteKind.chil_01) {
-                    selectChild(value)
+            if (OverviewScreenTimerComplete) {
+                game.reset()
+            } else {
+                for (let value22 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
+                    if (value22.kind() == SpriteKind.chil_01) {
+                        if (selectedEntity.kind() == SpriteKind.emptySelection) {
+                            selectChild(value22)
+                        }
+                    }
                 }
+                moveSelectedEntity()
+                animation.runImageAnimation(
+                target,
+                assets.animation`myAnim`,
+                100,
+                false
+                )
             }
-            moveSelectedEntity()
-            animation.runImageAnimation(
-            target,
-            assets.animation`myAnim`,
-            100,
-            false
-            )
         }
+    } else if (showInfo) {
+        music.baDing.play()
+        showtitle = 0
+        target.setFlag(SpriteFlag.Invisible, false)
+        removeTooltips()
+        info.startCountdown(180)
+    } else if (OverviewScreen == 1) {
+        console.log("blah")
     } else {
         grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
         tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
         animation.stopAnimation(animation.AnimationTypes.All, sprTitle)
         sprTitle.setPosition(-1000, -1000)
-        target.setFlag(SpriteFlag.Invisible, false)
-        showtitle = 0
         positionUI()
+        ShowInfo()
     }
 })
 function setMood (mySprite: Sprite) {
@@ -179,11 +256,53 @@ function setMood (mySprite: Sprite) {
     sprites.setDataString(mySprite, "mood", "sad")
     if (tempGenderVar) {
         sprites.setDataString(mySprite, "gender", "male")
-        sprites.setDataString(mySprite, "name", childrenBoysNames._pickRandom())
+        sprites.setDataString(mySprite, "name", childrenBoysNames.removeAt(randint(0, childrenBoysNames.length - 1)))
     } else {
         sprites.setDataString(mySprite, "gender", "female")
-        sprites.setDataString(mySprite, "name", childrenGirlsNames._pickRandom())
+        sprites.setDataString(mySprite, "name", childrenGirlsNames.removeAt(randint(0, childrenGirlsNames.length - 1)))
     }
+    mySprite = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Player)
+}
+function showScoreOverview () {
+    showTooltip("Overall score", 0, -40, 1)
+    showTooltip("Content", -45, -16, 1)
+    showTooltip("Children", -48, 0, 1)
+    showTooltip("Grade", -48, 30, 1)
+    CreateStars(tableAmount, 10, 16)
+    CreateStars(matchAmount, 10, 0)
+    timer.after(3000, function () {
+        showTooltip("Press A to continue", 0, 50, 1)
+        OverviewScreenTimerComplete = 1
+    })
+    if (averageAmount < 2) {
+        spr_grade = textsprite.create("C")
+    } else if (averageAmount > 2 && averageAmount < 3) {
+        spr_grade = textsprite.create("B")
+    } else if (averageAmount > 3 && averageAmount < 5) {
+        spr_grade = textsprite.create("A")
+    } else if (averageAmount == 5) {
+        spr_grade = textsprite.create("A+")
+    }
+    spr_grade.setMaxFontHeight(24)
+    spr_grade.z = 3001
+    spr_grade.setPosition(target.x + 14, target.y + 30)
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(-1, 0)
@@ -205,35 +324,86 @@ function createSpeechBubble (child: Sprite) {
         stillTalking = 0
     })
 }
-/**
- * Depth sorting
- */
+info.onCountdownEnd(function () {
+    music.magicWand.play()
+    removeTooltips()
+    checkScores()
+    if (menuVisible) {
+        showMenu()
+    }
+    spr_OverviewScreen = sprites.create(assets.image`myImage10`, SpriteKind.menu)
+    spr_OverviewScreen.setPosition(target.x - 0, target.y + -100)
+    spr_OverviewScreen.z = 3000
+    animation.runMovementAnimation(
+    spr_OverviewScreen,
+    animation.animationPresets(animation.easeDown),
+    500,
+    false
+    )
+    showScoreOverview()
+    showInfo = 0
+    menuVisible = 0
+    rosterShown = 0
+    OverviewScreen = 1
+})
+// Depth sorting
 function depthSorting () {
     target.z = target.bottom / 100
-    for (let value of Children) {
-        value.z = value.bottom / 100
+    for (let value32 of Children) {
+        value32.z = value32.bottom / 100
     }
-    for (let value2 of objectList) {
-        value2.z = value2.bottom / 100
+    for (let value222 of objectList) {
+        value222.z = value222.bottom / 100
     }
 }
 function createToolbox () {
     toolboxMenu_sprites = [0, 1]
     toolboxMenuOptions = [
-    sprites.create(assets.image`cursor1`, SpriteKind.table),
-    sprites.create(assets.image`cursor0`, SpriteKind.table),
-    sprites.create(assets.image`cursor2`, SpriteKind.table),
-    sprites.create(assets.image`cursor3`, SpriteKind.table),
-    sprites.create(assets.image`cursor4`, SpriteKind.Player),
-    sprites.create(assets.image`cursor5`, SpriteKind.Player)
+    sprites.create(assets.image`cursor8`, SpriteKind.object),
+    sprites.create(assets.image`cursor0`, SpriteKind.object),
+    sprites.create(assets.image`cursor2`, SpriteKind.object),
+    sprites.create(assets.image`cursor3`, SpriteKind.object),
+    sprites.create(assets.image`cursor9`, SpriteKind.object),
+    sprites.create(assets.image`cursor11`, SpriteKind.object),
+    sprites.create(assets.image`cursor10`, SpriteKind.object)
     ]
-    for (let value7 of toolboxMenuOptions) {
-        value7.setPosition(-1000, -1000)
+    toolboxMenuNames = [
+    "desk",
+    "teddy bear",
+    "globe",
+    "Meditating Carpet",
+    "Abacus",
+    "Classroom computer",
+    "Bookshelf"
+    ]
+    for (let index2 = 0; index2 <= toolboxMenuOptions.length - 1; index2++) {
+        toolboxMenuOptions[index2].setPosition(-1000, -1000)
+        sprites.setDataString(toolboxMenuOptions[index2], "name", toolboxMenuNames[index2])
+        sprites.setDataBoolean(toolboxMenuOptions[index2], "highlighted", false)
+        sprites.setDataBoolean(toolboxMenuOptions[index2], "selected", false)
     }
 }
-/**
- * Debug
- */
+function ShowInfo () {
+    music.baDing.play()
+    showTooltip("Listen to your students':needs and design a:classroom for them", 0, -30, 8)
+    showTooltip("You have 180 seconds", 0, 0, 8)
+    timer.after(3000, function () {
+        showInfo = 1
+        showTooltip("Press A to begin", 0, 30, 8)
+    })
+}
+function showTooltip (text: string, xPosOffset: number, yPosOffset: number, lineSpacing: number) {
+    if (selectedEntity.kind() == SpriteKind.emptySelection) {
+        textStringArray = text.split(":")
+        for (let index3 = 0; index3 <= textStringArray.length - 1; index3++) {
+            tooltipText = textsprite.create(textStringArray[index3], 1, 15)
+            tooltipText.setPosition(target.x + xPosOffset, target.y + yPosOffset + lineSpacing * index3)
+            tooltipText.z = 3001
+            tooltipText.setKind(SpriteKind.tooltip)
+        }
+    }
+}
+// Debug
 function showDebug () {
     debug_xPos = textsprite.create(convertToText(currentXpos), 15, 1)
     debug_yPos = textsprite.create(convertToText(currentYpos), 15, 1)
@@ -241,9 +411,7 @@ function showDebug () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(1, 0)
 })
-/**
- * Constants
- */
+// Constants
 function createChildren () {
     Children = [
     sprites.create(assets.image`villager3WalkFront1`, SpriteKind.chil_01),
@@ -306,31 +474,42 @@ function createChildren () {
     "Caleb"
     ]
     childrenInfo = [
-    "child info 1",
-    "child info 2",
-    "child info 3",
-    "child info 4",
-    "child info 5",
-    "child info 6",
-    "child info 7"
+    "I have trouble:concentrating in class:which sometimes gets:me into trouble",
+    "I get confused:with numbers as they:are hard to visualise",
+    "When there is lots:of noise I struggle to:concentrate on reading",
+    "I get scared and feel:anxious in a:classroom environment",
+    "I wish we could go:on the internet:in class"
     ]
-    for (let index = 0; index <= Children.length - 1; index++) {
-        tiles.placeOnRandomTile(Children[index], assets.tile`myTile`)
-        tiles.setTileAt(Children[index].tilemapLocation(), assets.tile`myTile22`)
-        sprites.setDataString(Children[index], "info", childrenInfo._pickRandom())
-        sprites.setDataBoolean(Children[index], "talking", false)
-        sprites.setDataNumber(Children[index], "xPos", grid.spriteCol(Children[index]))
-        sprites.setDataNumber(Children[index], "yPos", grid.spriteRow(Children[index]))
-        sprites.setDataNumber(Children[index], "childType", index)
-        sprites.setDataBoolean(Children[index], "highlighted", false)
-        sprites.setDataNumber(Children[index], "selected", 0)
-        setMood(Children[index])
-        EntityList.push(Children[index])
+    for (let index22 = 0; index22 <= Children.length - 1; index22++) {
+        tiles.placeOnRandomTile(Children[index22], assets.tile`myTile`)
+        tiles.setTileAt(Children[index22].tilemapLocation(), assets.tile`myTile22`)
+        sprites.setDataString(Children[index22], "info", childrenInfo.removeAt(randint(0, childrenInfo.length - 1)))
+        sprites.setDataBoolean(Children[index22], "talking", false)
+        sprites.setDataNumber(Children[index22], "xPos", grid.spriteCol(Children[index22]))
+        sprites.setDataNumber(Children[index22], "yPos", grid.spriteRow(Children[index22]))
+        sprites.setDataNumber(Children[index22], "childType", index22)
+        sprites.setDataBoolean(Children[index22], "highlighted", false)
+        sprites.setDataNumber(Children[index22], "selected", 0)
+        setMood(Children[index22])
+        EntityList.push(Children[index22])
     }
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     playerMovement(0, 1)
 })
+function CreateStars (amount: number, xPosOffset: number, yPosOffset: number) {
+    starLayoutArray = []
+    for (let index4 = 0; index4 <= 4; index4++) {
+        if (index4 < amount) {
+            starLayoutArray[index4] = sprites.create(assets.image`myImage11`, SpriteKind.uiStar)
+        } else {
+            starLayoutArray[index4] = sprites.create(assets.image`myImage12`, SpriteKind.uiStar)
+        }
+        starLayoutArray[index4].setPosition(target.x - xPosOffset + 15 * index4, target.y - yPosOffset)
+        starLayoutArray[index4].z += 3001
+        starLayoutArray[index4].changeScale(-0.2, ScaleAnchor.Middle)
+    }
+}
 function highlightChild (child: Sprite) {
     child.setImage(childrenHighlighted[sprites.readDataNumber(child, "childType")])
     sprites.setDataBoolean(child, "highlighted", true)
@@ -347,7 +526,7 @@ function drawToolMenuOptions () {
     if (menuVisible) {
         MenuIncrementValue = 0
         for (let yCount = 0; yCount <= toolboxMenuOptions.length - 1; yCount++) {
-            toolboxMenuOptions[MenuIncrementValue].setPosition(target.x + 42 + 16, target.y - 40 + 24 * yCount)
+            toolboxMenuOptions[MenuIncrementValue].setPosition(target.x + 42 + 16, target.y - 40 + 32 * yCount)
             toolboxMenuOptions[MenuIncrementValue].z = 2001
             MenuIncrementValue += 1
         }
@@ -370,7 +549,7 @@ function drawToolMenuOptions () {
             1 . . . . . . . . . . . . . . . 
             `, SpriteKind.selector)
         spr_toolSelectionBox.setFlag(SpriteFlag.Invisible, false)
-        spr_toolSelectionBox.setPosition(target.x + 38 + 16, target.y - 44)
+        spr_toolSelectionBox.setPosition(target.x + 34 + 16, target.y - 48)
         spr_toolSelectionBox.z = 3000
         animation.runImageAnimation(
         spr_toolSelectionBox,
@@ -380,65 +559,64 @@ function drawToolMenuOptions () {
         )
     } else {
         spr_toolSelectionBox.setFlag(SpriteFlag.Invisible, true)
-        for (let value3 of toolboxMenuOptions) {
-            value3.setPosition(target.x + 600, target.y - 36)
-            value3.z = 2001
+        for (let value322 of toolboxMenuOptions) {
+            value322.setPosition(target.x + 600, target.y - 36)
+            value322.z = 2001
         }
     }
 }
+function removeTooltips () {
+    sprites.destroyAllSpritesOfKind(SpriteKind.tooltip)
+}
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(showtitle)) {
-        if (!(rosterShown)) {
-            rosterShown = 1
-            spr_roster.z = 3000
-            spr_roster.setPosition(target.x, target.y)
-            ShowChildrenInRoster()
-        } else {
-            rosterShown = 0
-            spr_roster.setPosition(-1000, -1000)
-            for (let value4 of Children) {
-                tiles.placeOnRandomTile(value4, assets.tile`myTile`)
-                value4.setPosition(value4.x, value4.y + 8)
-            }
-            for (let value5 of childrenMoodList) {
-                value5.setPosition(-1000, -1000)
-            }
-            for (let value6 of sprRosterNames) {
-                value6.setPosition(-1000, -1000)
-            }
-            classRosterTitle.setPosition(-1000, -1000)
-            sprSelectionIcon.setPosition(-1000, -1000)
-        }
-    }
+	
 })
 function playerMovement (x: number, y: number) {
-    if (!(showtitle)) {
+    if (!(showtitle) && !(OverviewScreen)) {
         if (rosterShown && (RosterSelectionVar < 4 || RosterSelectionVar > 0)) {
             sprSelectionIcon.y += y * 20
             RosterSelectionVar += y
         } else if (menuVisible) {
-        	
-        } else {
-            if (currentYpos <= 10 || currentYpos >= 4 || (currentXpos >= 9 || currentXpos <= 21)) {
-                currentYpos += y
-                currentXpos += x
-                grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
-                deselect()
-                for (let value of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
-                    if (value.kind() == SpriteKind.chil_01) {
-                        highlightChild(value)
+            if (y < 0) {
+                if (currentSelectedTool > 0) {
+                    removeTooltips()
+                    currentSelectedTool += -1
+                    for (let index32 = 0; index32 <= toolboxMenuOptions.length - 1; index32++) {
+                        toolboxMenuOptions[index32].setPosition(toolboxMenuOptions[index32].x, toolboxMenuOptions[index32].y + 32)
                     }
+                    showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
                 }
-                tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
-                positionUI()
+            } else if (y > 0) {
+                if (currentSelectedTool < toolboxMenuOptions.length - 1) {
+                    removeTooltips()
+                    currentSelectedTool += 1
+                    for (let index42 = 0; index42 <= toolboxMenuOptions.length - 1; index42++) {
+                        toolboxMenuOptions[index42].setPosition(toolboxMenuOptions[index42].x, toolboxMenuOptions[index42].y - 32)
+                    }
+                    showTooltip(sprites.readDataString(toolboxMenuOptions[currentSelectedTool], "name"), 0, -34, 0)
+                }
+            }
+        } else {
+            if (currentXpos + x >= 9 && currentXpos + x <= 21 && (currentYpos + y <= 10 && currentYpos + y >= 4)) {
+                console.log(x)
+                currentXpos += x
+                currentYpos += y
+            }
+            grid.place(target, tiles.getTileLocation(currentXpos, currentYpos))
+            removeTooltips()
+            deselect()
+            highlightObject()
+            tiles.centerCameraOnTile(tiles.getTileLocation(currentXpos, currentYpos))
+            positionUI()
+            if (selectedEntity.kind() != SpriteKind.emptySelection) {
                 grid.place(selectedEntity, tiles.getTileLocation(currentXpos, currentYpos))
                 selectedEntity.setPosition(selectedEntity.x, selectedEntity.y - 4)
-                if (Debug) {
-                    debug_xPos.setPosition(target.x + 0, target.y + 10)
-                    debug_yPos.setPosition(target.x + 10, target.y + 10)
-                    debug_xPos.setText(convertToText(currentXpos))
-                    debug_yPos.setText(convertToText(currentYpos))
-                }
+            }
+            if (Debug) {
+                debug_xPos.setPosition(target.x + 0, target.y + 10)
+                debug_yPos.setPosition(target.x + 10, target.y + 10)
+                debug_xPos.setText(convertToText(currentXpos))
+                debug_yPos.setText(convertToText(currentYpos))
             }
         }
     }
@@ -496,62 +674,90 @@ function returnMood (Sprite2: Sprite) {
     }
     return sprTempMood
 }
-/**
- * Start
- */
+function highlightObject () {
+    if (!(showtitle)) {
+        for (let value8 of grid.getSprites(tiles.getTileLocation(currentXpos, currentYpos))) {
+            if (value8.kind() == SpriteKind.chil_01) {
+                highlightChild(value8)
+                showTooltip(sprites.readDataString(value8, "name"), 0, -14, 0)
+                showTooltip(sprites.readDataString(value8, "info"), 1, 30, 8)
+            }
+        }
+    }
+}
+let dir = 0
 let sprTempMood: Sprite = null
-let currentSelectedTool = 0
 let spr_toolSelectionBox: Sprite = null
 let MenuIncrementValue = 0
+let starLayoutArray: Sprite[] = []
 let childrenInfo: string[] = []
 let childrenHighlighted: Image[] = []
 let debug_yPos: TextSprite = null
 let debug_xPos: TextSprite = null
-let toolboxMenuOptions: Sprite[] = []
+let textStringArray: string[] = []
+let toolboxMenuNames: string[] = []
 let toolboxMenu_sprites: number[] = []
+let spr_OverviewScreen: Sprite = null
+let spr_grade: TextSprite = null
+let mySprite: Sprite = null
 let childrenGirlsNames: string[] = []
 let childrenBoysNames: string[] = []
 let tempGenderVar = 0
 let sprTitle: Sprite = null
-let Children: Sprite[] = []
+let newTempTool: Sprite = null
 let sprSelectionIcon: Sprite = null
 let classRosterTitle: TextSprite = null
 let childrenMoodList: Sprite[] = []
 let sprRosterNames: TextSprite[] = []
 let ChildrenRosterList: Sprite[] = []
 let childrenSelected: Image[][] = []
+let currentSelectedTool = 0
+let toolboxMenuOptions: Sprite[] = []
 let childrenNormal: Image[] = []
 let spr_mood: Sprite = null
 let spr_speechBubble: Sprite = null
 let spr_roster: Sprite = null
 let spr_menu: Sprite = null
+let amountOffset = 0
+let Children: Sprite[] = []
+let averageAmount = 0
+let layoutAmount = 0
+let matchAmount = 0
+let tableAmount = 0
 let target: Sprite = null
 let selectedEntity: Sprite = null
+let tooltipText: TextSprite = null
 let RosterSelectionVar = 0
 let rosterShown = 0
 let objectList: Sprite[] = []
 let EntityList: Sprite[] = []
+let OverviewScreen = 0
 let stillTalking = 0
 let currentYpos = 0
 let currentXpos = 0
 let menuVisible = 0
+let showInfo = 0
 let Debug = 0
 let showtitle = 0
+let OverviewScreenTimerComplete = 0
+let checkTilesArounditem: number[] = []
+let menuChoiceNumber = 0
+OverviewScreenTimerComplete = 0
 scene.setBackgroundColor(6)
 tiles.setCurrentTilemap(tilemap`level1`)
 showtitle = 1
 Debug = 0
+showInfo = 0
 menuVisible = 0
 currentXpos = 15
 currentYpos = 6
 stillTalking = 0
+OverviewScreen = 0
 EntityList = []
 objectList = []
-let checkTilesArounditem: number[] = []
 rosterShown = 0
 RosterSelectionVar = 0
-let menuChoiceNumber = 0
-let dir = 0
+tooltipText = textsprite.create("", 1, 15)
 let randomChild = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -604,12 +810,10 @@ createUI()
 if (Debug) {
     showDebug()
 }
-/**
- * Children tick
- */
+// Children tick
 game.onUpdateInterval(randint(200, 500), function () {
     if (!(rosterShown)) {
-        dir = randint(0, 4)
+        dir = randint(0, 3)
         randomChild = Children._pickRandom()
         if (!(sprites.readDataBoolean(randomChild, "highlighted"))) {
             if (!(sprites.readDataBoolean(randomChild, "selected"))) {
@@ -618,24 +822,32 @@ game.onUpdateInterval(randint(200, 500), function () {
                     grid.move(randomChild, -1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                    if (!(menuVisible) && !(OverviewScreen)) {
+                        highlightObject()
+                    }
                 } else if (randomChild.tileKindAt(TileDirection.Right, assets.tile`myTile`) && dir == 1) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 1, 0)
                     sprites.changeDataNumberBy(randomChild, "xPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                    if (!(menuVisible) && !(OverviewScreen)) {
+                        highlightObject()
+                    }
                 } else if (randomChild.tileKindAt(TileDirection.Top, assets.tile`myTile`) && dir == 2) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 0, -1)
                     sprites.changeDataNumberBy(randomChild, "yPos", -1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
+                    if (!(menuVisible) && !(OverviewScreen)) {
+                        highlightObject()
+                    }
                 } else if (randomChild.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && dir == 3) {
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile`)
                     grid.move(randomChild, 0, 1)
                     sprites.changeDataNumberBy(randomChild, "yPos", 1)
                     tiles.setTileAt(randomChild.tilemapLocation(), assets.tile`myTile22`)
-                } else {
-                    if (!(stillTalking)) {
-                        createSpeechBubble(randomChild)
+                    if (!(menuVisible) && !(OverviewScreen)) {
+                        highlightObject()
                     }
                 }
             }
